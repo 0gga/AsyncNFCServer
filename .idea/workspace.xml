@@ -30,17 +30,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e88e430f-6c0c-4de0-ad45-dce95fb81252" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Reader/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Reader/include/State.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Reader/include/State.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scopes/_myScope.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scopes/_myScope.xml" afterDir="false" />
+    <list default="true" id="e88e430f-6c0c-4de0-ad45-dce95fb81252" name="Changes" comment="Pseudo setup">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,8 +138,17 @@
       <updated>1748687095261</updated>
       <workItem from="1748687096537" duration="410000" />
       <workItem from="1748687511137" duration="265000" />
-      <workItem from="1756904175323" duration="915000" />
+      <workItem from="1756904175323" duration="1230000" />
     </task>
+    <task id="LOCAL-00001" summary="Pseudo setup">
+      <option name="closed" value="true" />
+      <created>1756905130675</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1756905130675</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,6 +158,10 @@
     <isAutomaticCheckingOnLaunch value="false" />
     <isAutomaticFoundErrors value="true" />
     <isAutomaticReloadCMake value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Pseudo setup" />
+    <option name="LAST_COMMIT_MESSAGE" value="Pseudo setup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
