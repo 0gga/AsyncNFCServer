@@ -30,9 +30,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e88e430f-6c0c-4de0-ad45-dce95fb81252" name="Changes" comment="Pseudo setup">
+    <list default="true" id="e88e430f-6c0c-4de0-ad45-dce95fb81252" name="Changes" comment="Fix">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Reader/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +138,7 @@
       <updated>1748687095261</updated>
       <workItem from="1748687096537" duration="410000" />
       <workItem from="1748687511137" duration="265000" />
-      <workItem from="1756904175323" duration="1230000" />
+      <workItem from="1756904175323" duration="1286000" />
     </task>
     <task id="LOCAL-00001" summary="Pseudo setup">
       <option name="closed" value="true" />
@@ -148,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1756905130675</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1756905418029</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1756905418029</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -161,7 +169,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Pseudo setup" />
-    <option name="LAST_COMMIT_MESSAGE" value="Pseudo setup" />
+    <MESSAGE value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
