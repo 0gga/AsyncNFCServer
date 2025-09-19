@@ -8,6 +8,11 @@ enum class NFCState {
 	newUser
 };
 
+enum class ActiveState {
+	authenticate,
+	process,
+};
+
 class State {
 public:
 	NFCState getState() const;
