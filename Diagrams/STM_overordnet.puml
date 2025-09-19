@@ -1,0 +1,40 @@
+@startuml STM
+mainframe **stm** Smart Lock\t
+state "Ready" as on
+state "Verifying" as verify
+state "Acces granted" as grant
+state "Acces denied" as deny
+state "Waiting" as wait
+ 
+'state choice <<choice>>
+
+on : entry/Turn on reader
+on : do/Await chip detection, read chip
+
+verify : entry/
+verify : do/
+
+grant : entry/Turn on green lamp, open door
+grant : do/Log user data
+
+deny : entry/Turn on red lamp
+deny : do/Log user data or error message
+
+wait : do/Await door closing
+
+
+[*] -r-> on : init
+
+on -r-> verify : Chip scanned
+
+verify -> grant : User in system, correct authorization
+verify -> deny : User not in system 
+verify -> deny : User not correct authorization 
+
+grant -u-> wait : Door opened
+
+deny -d-> on : Door is still closed
+
+wait -d-> on : Door closed
+
+@enduml
