@@ -1,0 +1,22 @@
+@startuml UC
+left to right direction
+
+mainframe **uc** Smart Lock
+actor :Bruger: as user
+actor :Administrator: as admin
+actor :Lås på dør: as lock
+
+rectangle "Smart Lock" {
+    usecase (1. Lås døren op) as (unlock)
+    usecase (2. Tilføj bruger) as (add)
+    usecase (3. Rediger bruger) as (edit)
+}
+
+user -- (unlock)
+user -- (add)
+(unlock) -- lock
+admin -- (add)
+admin -- (edit)
+
+
+@enduml

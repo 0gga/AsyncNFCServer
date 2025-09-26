@@ -9,32 +9,32 @@ state "Waiting" as wait
 'state choice <<choice>>
 
 on : entry/Turn on reader
-on : do/Await chip detection, read chip
+on : do/Await key card detection, read key card
 
-verify : entry/
-verify : do/
+verify : entry/Server search for user in database
+verify : do/Client awaits answer from server
 
-grant : entry/Turn on green lamp, open door
+grant : entry/Turn on green lamp, open lock
 grant : do/Log user data
 
 deny : entry/Turn on red lamp
 deny : do/Log user data or error message
 
-wait : do/Await door closing
+wait : do/Wait eight seconds
 
 
 [*] -r-> on : init
 
-on -r-> verify : Chip scanned
+on -r-> verify : Key card scanned
 
 verify -> grant : User in system, correct authorization
 verify -> deny : User not in system 
 verify -> deny : User not correct authorization 
 
-grant -u-> wait : Door opened
+grant -u-> wait : Lock is unlocked
 
-deny -d-> on : Door is still closed
+deny -d-> on : Lock is still locked
 
-wait -d-> on : Door closed
+wait -d-> on : Lock is locked
 
 @enduml
