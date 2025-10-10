@@ -1,5 +1,6 @@
 ﻿#pragma once
-#include <string>
+#include "CLI_TCP.c"
+
 #include <thread>
 #include <vector>
 

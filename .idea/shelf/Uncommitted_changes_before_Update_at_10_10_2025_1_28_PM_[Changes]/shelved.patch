@@ -1,0 +1,150 @@
+Index: Reader/include/State.h
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>#pragma once\r\n#include <string>\r\n#include <thread>\r\n#include <vector>\r\n\r\nenum class NFCState {\r\n\tidle,\r\n\tactive,\r\n\tnewUser\r\n};\r\n\r\nclass State {\r\npublic:\r\n\tNFCState getState() const;\r\n\tvoid tick();\r\n\r\nprivate:\r\n\tNFCState state = NFCState::idle;\r\n\r\n\tvoid handle_state();\r\n\tvoid handle_TCP();\r\n\r\n\tvoid handle_Idle();\r\n\tvoid handle_Active();\r\n\tvoid handle_New_User();\r\n\r\n\tbool check_For_Tag() const;\r\n\tbool is_Known_Tag() const;\r\n\tvoid process_Known_Tag();\r\n\tvoid register_New_User();\r\n\r\n\tstd::thread client_TCP_t;\r\n\tvoid client_TCP();\r\n\tstd::thread CLI_TCP_t;\r\n\tvoid CLI_TCP();\r\n\r\n\tstd::pair<int, int>* client_TCP_package = new std::pair<int, int>;\r\n\tint* CLI_TCP_package = new int;\r\n};\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Reader/include/State.h b/Reader/include/State.h
+--- a/Reader/include/State.h	(revision 2eccb5369c1220fa71549d016dbda1bdf7a5ef1a)
++++ b/Reader/include/State.h	(date 1760095718201)
+@@ -1,5 +1,6 @@
+ #pragma once
+-#include <string>
++#include "CLI_TCP.c"
++
+ #include <thread>
+ #include <vector>
+ 
+Index: Reader/CMakeLists.txt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>cmake_minimum_required(VERSION 3.27)\r\nproject(L7_8E2 LANGUAGES CXX)\r\n\r\n# Collect all cpp files from src/\r\nfile(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)\r\n\r\n# Collect all h files from include/\r\nfile(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS include/*.h)\r\n\r\n# Create the executable\r\nadd_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})\r\n\r\n# Include headers from include/\r\ntarget_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)\r\n\r\n# Set C++ standard\r\nset_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 26)
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Reader/CMakeLists.txt b/Reader/CMakeLists.txt
+--- a/Reader/CMakeLists.txt	(revision 2eccb5369c1220fa71549d016dbda1bdf7a5ef1a)
++++ b/Reader/CMakeLists.txt	(date 1760095555707)
+@@ -1,17 +1,26 @@
+ cmake_minimum_required(VERSION 3.27)
+-project(L7_8E2 LANGUAGES CXX)
++get_filename_component(PROJ_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
++project(${PROJ_NAME} LANGUAGES CXX)
+ 
+-# Collect all cpp files from src/
+-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp)
++# Collect all .c, .cpp, .h, .tpp files from src/ & include/
++file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.c)
++file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS include/*.cpp include/*.c include/*.h include/*.tpp)
++file(GLOB_RECURSE SERVERS CONFIGURE_DEPENDS servers/*.cpp servers/*.c servers/*.h servers/*.tpp)
+ 
+-# Collect all h files from include/
+-file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS include/*.h)
++# Define executable path
++set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+ 
+ # Create the executable
+-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
++add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${SERVERS})
+ 
+ # Include headers from include/
+-target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
++target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include PRIVATE ${PROJECT_SOURCE_DIR}/servers)
+ 
+ # Set C++ standard
+-set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 26)
+\ No newline at end of file
++set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 26)
++
++# Statically link libraries - No STL dependencies.
++target_link_options(${PROJECT_NAME} PRIVATE -static)
++
++# Force .exe
++set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".exe")
+\ No newline at end of file
+Index: Reader/servers/CLI_TCP.c
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Reader/servers/CLI_TCP.c b/Reader/servers/CLI_TCP.c
+new file mode 100644
+--- /dev/null	(date 1760095301480)
++++ b/Reader/servers/CLI_TCP.c	(date 1760095301480)
+@@ -0,0 +1,75 @@
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
++#include <sys/types.h>
++#include <sys/socket.h>
++#include <netinet/in.h>
++
++#define BUFSIZE_RX 200
++#define BUFSIZE_TX 256
++
++void error(const char *msg)
++{
++	perror(msg);
++	exit(1);
++}
++
++int main(int argc, char *argv[])
++{
++	printf("Starting server...\n");
++
++	int sockfd, newsockfd, portno;
++
++	socklen_t clilen;
++	uint8_t bufferRx[BUFSIZE_RX];
++	uint8_t bufferTx[BUFSIZE_TX];
++	struct sockaddr_in serv_addr, cli_addr;
++	int n;
++
++	sockfd = socket(AF_INET, SOCK_STREAM, 0);
++	if (sockfd < 0)
++		error("ERROR opening socket");
++
++	printf("Binding...\n");
++	bzero((char *)&serv_addr, sizeof(serv_addr));
++	portno = 3000;
++	serv_addr.sin_family = AF_INET;
++	serv_addr.sin_addr.s_addr = INADDR_ANY;
++	serv_addr.sin_port = htons(portno);
++	if (bind(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
++		error("ERROR on binding");
++
++	printf("Listen...\n");
++	listen(sockfd, 5);
++
++	clilen = sizeof(cli_addr);
++
++	for (;;)
++	{
++		printf("Accept...\n");
++		newsockfd = accept(sockfd, (struct sockaddr *)&cli_addr, &clilen);
++
++		if (newsockfd < 0)
++			error("ERROR on accept");
++		else
++			printf("Accepted\n");
++
++		bzero(bufferRx, sizeof(bufferRx));
++		n = read(newsockfd, bufferRx, sizeof(bufferRx));
++
++		if (n < 0)
++			error("ERROR reading from socket");
++		printf("Message: %s\n", (char *)bufferRx);
++
++		snprintf((char *)bufferTx, sizeof(bufferTx), "Got message: %s", (char *)bufferRx);
++
++		n = write(newsockfd, bufferTx, strlen((char *)bufferTx));
++		if (n < 0)
++			error("ERROR writing to socket");
++
++		close(newsockfd);
++	}
++	close(sockfd);
++	return 0;
++}
