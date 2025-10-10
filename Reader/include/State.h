@@ -1,16 +1,12 @@
 ﻿#pragma once
 #include <string>
+#include <thread>
 #include <vector>
 
 enum class NFCState {
 	idle,
 	active,
 	newUser
-};
-
-enum class ActiveState {
-	authenticate,
-	process,
 };
 
 class State {
@@ -21,12 +17,23 @@ public:
 private:
 	NFCState state = NFCState::idle;
 
-	void handle_idle();
-	void handle_active();
-	void handle_newUser();
+	void handle_state();
+	void handle_TCP();
 
-	bool checkForTag();
-	bool isKnownTag();
-	void processKnownTag();
-	void registerNewUser();
+	void handle_Idle();
+	void handle_Active();
+	void handle_New_User();
+
+	bool check_For_Tag() const;
+	bool is_Known_Tag() const;
+	void process_Known_Tag();
+	void register_New_User();
+
+	std::thread client_TCP_t;
+	void client_TCP();
+	std::thread CLI_TCP_t;
+	void CLI_TCP();
+
+	std::pair<int, int>* client_TCP_package = new std::pair<int, int>;
+	int* CLI_TCP_package = new int;
 };
