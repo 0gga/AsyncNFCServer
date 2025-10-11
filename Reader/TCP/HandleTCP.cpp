@@ -1,12 +1,19 @@
 #include "HandleTCP.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 
 #define BUFSIZE_RX 256
 #define BUFSIZE_TX 512
 
 HandleTCP::HandleTCP() {
-    //client_TCP_t = std::thread(&initClient);
-    CLI_TCP_t = std::thread(&initCLI);
+    //client_TCP_t = std::thread(&HandleTCP::initClient, this);
+    CLI_TCP_t = std::thread(&HandleTCP::initCLI, this);
 }
 
 HandleTCP::~HandleTCP() {
