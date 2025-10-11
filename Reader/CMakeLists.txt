@@ -11,7 +11,9 @@ file(GLOB_RECURSE SERVERS CONFIGURE_DEPENDS servers/*.cpp servers/*.c servers/*.
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 
 # Create the executable
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${SERVERS})
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${SERVERS}
+		src/HandleTcp.cpp
+		include/HandleTcp.h)
 
 # Include headers from include/
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include PRIVATE ${PROJECT_SOURCE_DIR}/servers)

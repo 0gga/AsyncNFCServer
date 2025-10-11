@@ -1,40 +1,69 @@
 ﻿#include "State.h"
 
 NFCState State::getState() const {
-	return state;
+    return state;
+}
+
+State::State() {
+    client_TCP.initClient();
+    client_TCP.initCLI();
+}
+
+State::~State() {
+
 }
 
 void State::tick() {
-	handle_state();
+    handle_CLI_TCP();
+    handle_Client_TCP();
+    handle_State();
 }
 
-void State::handle_state() {
-	switch (state) {
-		case NFCState::idle:
-			handle_Idle();
-			break;
-		case NFCState::active:
-			handle_Active();
-			break;
-		case NFCState::newUser:
-			handle_New_User();
-			break;
-	}
+void State::handle_State() {
+    switch (state) {
+        case NFCState::idle:
+            handle_Idle();
+            break;
+        case NFCState::active:
+            handle_Active();
+            break;
+        case NFCState::newUser:
+            handle_NewUser();
+            break;
+    }
+}
+
+void State::handle_Client_TCP() {
+    auto pkg = client_package;
+    if (!pkg) {
+        return;
+    }
+}
+
+void State::handle_CLI_TCP() {
+    auto pkg = CLI_package;
+    if (!pkg) {
+        return;
+    }
+    if (*pkg == "newUser") {
+        state = NFCState::newUser;
+    }
+    if (*pkg == "rmUser") {}
+    if (*pkg == "getLog") {
+        returnLog();
+    }
 }
 
 void State::handle_Idle() {
-	if (check_For_Tag())
-		state = NFCState::active;
+    if (check_For_Tag()) state = NFCState::active;
 }
 
 void State::handle_Active() {
-	if (!checkForTag())
-		state = NFCState::idle;
-	else if (!isKnownTag())
-		state = NFCState::newUser;
+    if (!check_For_Tag()) state = NFCState::idle;
+    else if (!is_KnownTag()) state = NFCState::newUser;
 }
 
-void State::handle_New_User() {
-	registerNewUser();
-	state = NFCState::active;
+void State::handle_NewUser() {
+    register_NewUser();
+    state = NFCState::active;
 }

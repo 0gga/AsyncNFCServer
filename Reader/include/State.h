@@ -1,8 +1,7 @@
 ﻿#pragma once
-#include "CLI_TCP.c"
+#include "HandleTCP.h"
 
-#include <thread>
-#include <vector>
+#include <unordered_map>
 
 enum class NFCState {
 	idle,
@@ -18,23 +17,22 @@ public:
 private:
 	NFCState state = NFCState::idle;
 
-	void handle_state();
-	void handle_TCP();
+	State();
+	~State();
+
+	void handle_State();
+	void handle_Client_TCP();
+	void handle_CLI_TCP();
 
 	void handle_Idle();
 	void handle_Active();
-	void handle_New_User();
+	void handle_NewUser();
 
 	bool check_For_Tag() const;
-	bool is_Known_Tag() const;
-	void process_Known_Tag();
-	void register_New_User();
+	bool is_KnownTag() const;
+	void process_KnownTag();
+	void register_NewUser();
 
-	std::thread client_TCP_t;
-	void client_TCP();
-	std::thread CLI_TCP_t;
-	void CLI_TCP();
-
-	std::pair<int, int>* client_TCP_package = new std::pair<int, int>;
-	int* CLI_TCP_package = new int;
+	HandleTCP client_TCP;
+	HandleTCP CLI_TCP;
 };

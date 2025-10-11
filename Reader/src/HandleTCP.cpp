@@ -1,23 +1,35 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
+#include "HandleTCP.h"
 
-#define BUFSIZE_RX 200
-#define BUFSIZE_TX 256
 
-void error(const char* msg) {
-    perror(msg);
-    exit(1);
+#define BUFSIZE_RX 256
+#define BUFSIZE_TX 512
+
+HandleTCP::HandleTCP() {
+    //client_TCP_t = std::thread(&initClient);
+    CLI_TCP_t = std::thread(&initCLI);
 }
 
-int main(int argc, char* argv[]) {
+HandleTCP::~HandleTCP() {
+    if (client_TCP_t.joinable()) {
+        client_TCP_t.join();
+    }
+    if (CLI_TCP_t.joinable()) {
+        CLI_TCP_t.join();
+    }
+    delete client_package;
+    delete CLI_package;
+}
+
+void HandleTCP::initClient() {
+
+}
+
+void HandleTCP::initCLI() {
+    bool running{true};
+
     printf("Starting server...\n");
 
-    int sockfd, newsockfd, portno;
+    int sockfd, newsockfd;
 
     socklen_t clilen;
     uint8_t bufferRx[BUFSIZE_RX];
@@ -27,7 +39,7 @@ int main(int argc, char* argv[]) {
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
         perror("ERROR opening socket");
-        return 1;
+        return;
     }
 
     ////////////////////////////////////////
@@ -43,41 +55,51 @@ int main(int argc, char* argv[]) {
     if (inet_pton(AF_INET, ip, &serv_addr.sin_addr) <= 0) {
         perror("sendto");
         close(sockfd);
-        return 1;
+        return;
     }
 
     if (bind(sockfd, reinterpret_cast<sockaddr*>(&serv_addr), sizeof(serv_addr)) < 0) {
         perror("bind");
         close(sockfd);
-        return 1;
     }
 
     // Waiting for clients - Size of queue.
     listen(sockfd, 5);
 
     printf("Listening...\n");
-    clilen = sizeof(cli_addr);
+    clilen = sizeof(serv_addr);
 
-    while (true) {
+    while (running) {
         printf("Accepting...\n");
-        newsockfd = accept(sockfd, (struct sockaddr*)&cli_addr, &clilen);
+        newsockfd = accept(sockfd, (struct sockaddr*)&serv_addr, &clilen);
 
-        if (newsockfd < 0) error("ERROR on accept");
-        else printf("Accepted\n");
+        if (newsockfd < 0)
+            perror("ERROR on accept");
+
+        printf("Accepted\n");
 
         readTextTCP(newsockfd, bufferRx, sizeof(bufferRx));
         n = read(newsockfd, bufferRx, sizeof(bufferRx));
 
-        if (n < 0) error("ERROR reading from socket");
+        if (n < 0)
+            perror("ERROR reading from socket");
         printf("Message: %s\n", (char*)bufferRx);
 
         snprintf((char*)bufferTx, sizeof(bufferTx), "Got message: %s", (char*)bufferRx);
 
         n = write(newsockfd, bufferTx, strlen((char*)bufferTx));
-        if (n < 0) error("ERROR writing to socket");
+        if (n < 0)
+            perror("ERROR writing to socket");
 
         close(newsockfd);
     }
     close(sockfd);
-    return 0;
+}
+
+std::pair<int, int>* HandleTCP::getClientPackage() const {
+    return client_package;
+}
+
+std::string* HandleTCP::getCLIPackage() const {
+    return CLI_package;
 }
