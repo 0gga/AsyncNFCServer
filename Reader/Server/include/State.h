@@ -11,18 +11,18 @@ enum class NFCState {
 
 class State {
 public:
+	State();
+	~State();
+
 	NFCState getState() const;
 	void tick();
 
 private:
 	NFCState state = NFCState::idle;
 
-	State();
-	~State();
-
 	void handle_State();
-	void handle_Client_TCP();
-	void handle_CLI_TCP();
+	void handle_Client();
+	void handle_CLI();
 
 	void handle_Idle();
 	void handle_Active();

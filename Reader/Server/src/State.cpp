@@ -14,8 +14,8 @@ State::~State() {
 }
 
 void State::tick() {
-    handle_CLI_TCP();
-    handle_Client_TCP();
+    handle_CLI();
+    handle_Client();
     handle_State();
 }
 
@@ -33,15 +33,15 @@ void State::handle_State() {
     }
 }
 
-void State::handle_Client_TCP() {
-    auto pkg = client_package;
+void State::handle_Client() {
+    auto pkg = client_TCP.getClientPackage();
     if (!pkg) {
         return;
     }
 }
 
-void State::handle_CLI_TCP() {
-    auto pkg = CLI_package;
+void State::handle_CLI() {
+    auto pkg = CLI_TCP.getCLIPackage();
     if (!pkg) {
         return;
     }
