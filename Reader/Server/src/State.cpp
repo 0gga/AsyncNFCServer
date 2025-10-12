@@ -5,73 +5,90 @@ NFCState State::getState() const {
 }
 
 State::State() {
-    client_TCP.initClient();
-    client_TCP.initCLI();
+    clientTcp.initClient();
+    clientTcp.initCli();
 }
 
 State::~State() {}
 
 void State::tick() {
-    handle_CLI();
-    handle_Client();
-    handle_State();
+    handleState();
 }
 
-void State::handle_State() {
+void State::handleState() {
     switch (state) {
         case NFCState::idle:
-            handle_Idle();
+            handleIdle();
             break;
-        case NFCState::active:
-            handle_Active();
+        case NFCState::cliActive:
+            handleCli();
             break;
-        case NFCState::newUser:
-            handle_NewUser();
+        case NFCState::clientActive:
+            handleClient();
             break;
     }
 }
 
-void State::handle_Client() {
-    auto pkg = client_TCP.getPackage();
-    if (!pkg) {
-        return;
+void State::handleClient() {
+    auto& pkg = clientTcp.getPackage();
+    // Check UID and access level.
+    if (1) {
+        clientTcp.send(static_cast<std::string>("Approved"));
+    } else
+    {
+        clientTcp.send(static_cast<std::string>("Denied"));
     }
-    delete pkg;
+
+    // Set package to nullptr for handleIdle
+    pkg = nullptr;
 }
 
-void State::handle_CLI() {
-    auto pkg = CLI_TCP.getPackage();
-    if (!pkg) {
-        return;
-    }
-    if (*pkg == "newUser") {
-        state = NFCState::newUser;
+void State::handleCli() {
+    auto& pkg             = cliTcp.getPackage();
+    std::string prefixStr = "newUser";
+    if (pkg->substr(0, prefixStr.size()) == prefixStr) {
+        pkg->erase(0, prefixStr.size());
+        handleNewUser();
     }
     if (*pkg == "rmUser") {}
     if (*pkg == "getLog") {
         log = getLog();
-        CLI_TCP.send(log);
+        cliTcp.send(log);
     }
     delete pkg;
 }
 
-void State::handle_Idle() {
-    if (check_For_Tag())
-        state = NFCState::active;
-}
-
-void State::handle_Active() {
-    if (!check_For_Tag())
-        state = NFCState::idle;
-    else if (!is_KnownTag())
-        state = NFCState::newUser;
-}
-
-void State::handle_NewUser() {
-    register_NewUser();
-    state = NFCState::active;
+void State::handleIdle() {
+    // Setting states if packages != nullptr.
+    if (cliTcp.getPackage()) state = NFCState::cliActive;
+    else if (clientTcp.getPackage()) state = NFCState::clientActive;
 }
 
 nlohmann::json State::getLog() const {
     return log;
+}
+
+void State::handleNewUser() {
+    auto& clientPkg = clientTcp.getPackage();
+    auto& cliPkg    = cliTcp.getPackage();
+
+    std::this_thread::sleep_for(std::chrono::seconds(10));
+
+    if (!clientPkg) {
+        return;
+    }
+
+    char accessLvl = cliPkg->front();
+    cliPkg->erase(0, 1);
+    std::string name = *cliPkg;
+
+    nlohmann::json newUser{
+        {"UID", *clientPkg},
+        {"accessLvl", accessLvl},
+        {"Name", *cliPkg}
+    };
+    users.push_back(newUser);
+    clientPkg = nullptr;
+    cliPkg    = nullptr;
+    state     = NFCState::idle;
 }

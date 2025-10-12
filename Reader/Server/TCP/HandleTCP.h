@@ -4,22 +4,26 @@
 
 #include <thread>
 
-template<typename Rx, typename Tx>
+#include "json.hpp"
+
+template<typename Rx>
 class HandleTCP {
 public:
     HandleTCP();
     ~HandleTCP();
 
     void initClient();
-    void initCLI();
+    void initCli();
 
-    void send(Tx) const;
+    void send(nlohmann::json) const;
+    void send(std::string) const;
 
-    Rx* getPackage() const;
+    Rx*& getPackage() const;
 
 private:
-    std::thread client_TCP_t;
-    std::thread CLI_TCP_t;
+    std::thread clientTcp_t;
+    std::thread cliTcp_t;
 
     Rx* package = new Rx;
+    bool running{true};
 };

@@ -7,8 +7,8 @@
 
 enum class NFCState {
     idle,
-    active,
-    newUser
+    cliActive,
+    clientActive
 };
 
 class State {
@@ -22,23 +22,19 @@ public:
 private:
     NFCState state = NFCState::idle;
 
-    void handle_State();
-    void handle_Client();
-    void handle_CLI();
+    void handleState();
 
-    void handle_Idle();
-    void handle_Active();
-    void handle_NewUser();
+    void handleClient();
+    void handleCli();
+
+    void handleIdle();
+    void handleNewUser();
 
     nlohmann::json getLog() const;
 
-    bool check_For_Tag() const;
-    bool is_KnownTag() const;
-    void process_KnownTag();
-    void register_NewUser();
-
-    HandleTCP<int, std::string> client_TCP;
-    HandleTCP<std::string, nlohmann::json> CLI_TCP;
+    HandleTCP<int> clientTcp;
+    HandleTCP<std::string> cliTcp;
 
     nlohmann::json log;
+    nlohmann::json users;
 };

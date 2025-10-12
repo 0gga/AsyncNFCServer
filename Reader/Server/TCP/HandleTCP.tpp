@@ -11,32 +11,31 @@
 #define BUFSIZE_RX 256
 #define BUFSIZE_TX 512
 
-template<typename Rx, typename Tx>
-HandleTCP<Rx,Tx>::HandleTCP() {
+template<typename Rx>
+HandleTCP<Rx>::HandleTCP() {
     //client_TCP_t = std::thread(&HandleTCP::initClient, this);
-    CLI_TCP_t = std::thread(&HandleTCP<T>::initCLI, this);
+    cliTcp_t = std::thread(&HandleTCP::initCli, this);
 }
-template<typename Rx, typename Tx>
-HandleTCP<Rx,Tx>::~HandleTCP() {
-    if (client_TCP_t.joinable()) {
-        client_TCP_t.join();
+template<typename Rx>
+HandleTCP<Rx>::~HandleTCP() {
+    running = false;
+    if (clientTcp_t.joinable()) {
+        clientTcp_t.join();
     }
-    if (CLI_TCP_t.joinable()) {
-        CLI_TCP_t.join();
+    if (cliTcp_t.joinable()) {
+        cliTcp_t.join();
     }
     delete package;
 }
 
-template<typename Rx, typename Tx>
-void HandleTCP<Rx,Tx>::initClient() {
+template<typename Rx>
+void HandleTCP<Rx>::initClient() {
 
 }
 
-template<typename Rx, typename Tx>
-void HandleTCP<Rx,Tx>::initCLI() {
-    bool running{true};
-
-    printf("Starting server...\n");
+template<typename Rx>
+void HandleTCP<Rx>::initCli() {
+    printf("Starting CLI server...\n");
 
     int sockfd, newsockfd;
 
@@ -47,7 +46,7 @@ void HandleTCP<Rx,Tx>::initCLI() {
 
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0) {
-        perror("ERROR opening socket");
+        perror("ERROR opening CLI socket");
         return;
     }
 
@@ -75,26 +74,26 @@ void HandleTCP<Rx,Tx>::initCLI() {
     // Waiting for clients - Size of queue.
     listen(sockfd, 5);
 
-    printf("Listening...\n");
+    printf("CLI Listening...\n");
     clilen = sizeof(serv_addr);
 
     while (running) {
-        printf("Accepting...\n");
+        printf("CLI Accepting...\n");
         newsockfd = accept(sockfd, (struct sockaddr*)&serv_addr, &clilen);
 
         if (newsockfd < 0)
             perror("ERROR on accept");
 
-        printf("Accepted\n");
+        printf("CLI Accepted\n");
 
         readTextTCP(newsockfd, bufferRx, sizeof(bufferRx));
         n = read(newsockfd, bufferRx, sizeof(bufferRx));
 
         if (n < 0)
             perror("ERROR reading from socket");
-        printf("Message: %s\n", (char*)bufferRx);
+        printf("CLI Message: %s\n", (char*)bufferRx);
 
-        snprintf((char*)bufferTx, sizeof(bufferTx), "Got message: %s", (char*)bufferRx);
+        snprintf((char*)bufferTx, sizeof(bufferTx), "CLI Got message: %s", (char*)bufferRx);
 
         n = write(newsockfd, bufferTx, strlen((char*)bufferTx));
         if (n < 0)
@@ -105,12 +104,17 @@ void HandleTCP<Rx,Tx>::initCLI() {
     close(sockfd);
 }
 
-template<typename Rx, typename Tx>
-void HandleTCP<Rx,Tx>::send(T data) const {
+template<typename Rx>
+void HandleTCP<Rx>::send(nlohmann::json data) const {
 
 }
 
-template<typename Rx, typename Tx>
-Rx HandleTCP<Rx,Tx>::getPackage() const {
+template<typename Rx>
+void HandleTCP<Rx>::send(std::string msg) const {
+
+}
+
+template<typename Rx>
+Rx*& HandleTCP<Rx>::getPackage() const {
     return package;
 }
