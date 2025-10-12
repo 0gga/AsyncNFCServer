@@ -6,9 +6,8 @@ NFCState Reader::getState() const {
     return state;
 }
 
-Reader::Reader(int port) {
+Reader::Reader(int port, int readerAccessLevel) {
     // Read users JSON
-
     std::ifstream file("users.json");
     if (!file) {
         std::cerr << "Failed to open file" << std::endl;
@@ -21,9 +20,9 @@ Reader::Reader(int port) {
             users[user["uid"]] = {user["name"], user["accessLevel"]};
         }
     }
-
     //////////////////
 
+    this->readerAccessLevel = readerAccessLevel;
     clientTcp.initClient(static_cast<uint16_t>(port));
     clientTcp.initCli(static_cast<uint16_t>(port));
 }
@@ -108,7 +107,7 @@ void Reader::handleNewUser() {
         {"name", *cliPkg},
         {"accessLevel", accessLevel}
     };
-    users[std::to_string(*clientPkg)] = {*cliPkg, accessLevel};
+    users[*clientPkg] = {*cliPkg, accessLevel};
 
     std::ifstream inJson("users.json");
     nlohmann::json usersJson = nlohmann::json::array();

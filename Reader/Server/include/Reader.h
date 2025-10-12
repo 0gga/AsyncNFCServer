@@ -14,7 +14,7 @@ enum class NFCState {
 
 class Reader {
 public:
-    Reader(int);
+    Reader(int, int);
     ~Reader();
 
     NFCState getState() const;
@@ -38,4 +38,6 @@ private:
 
     nlohmann::json log;
     std::unordered_map<std::string, std::pair<std::string, int>> users;
+
+    int readerAccessLevel;
 };
