@@ -1,10 +1,29 @@
 ﻿#include "Reader.h"
 
+#include <iostream>
+
 NFCState Reader::getState() const {
     return state;
 }
 
 Reader::Reader(int port) {
+    // Read users JSON
+
+    std::ifstream file("users.json");
+    if (!file) {
+        std::cerr << "Failed to open file" << std::endl;
+    }
+    nlohmann::json json;
+    file >> json;
+
+    for (const auto& user : json) {
+        if (user.contains("uid") && user.contains("name") && user.contains("accessLevel")) {
+            users[user["uid"]] = {user["name"], user["accessLevel"]};
+        }
+    }
+
+    //////////////////
+
     clientTcp.initClient(static_cast<uint16_t>(port));
     clientTcp.initCli(static_cast<uint16_t>(port));
 }
@@ -32,16 +51,16 @@ void Reader::handleState() {
 void Reader::handleClient() {
     auto& pkg = clientTcp.getPackage();
     // Check UID and access level.
-    bool authorized = users.find
+    auto user = users.find(*pkg);
+    bool authorized = (user != users.end() && user->second.second >= readerAccessLevel);
     if (authorized) {
         clientTcp.send(static_cast<std::string>("Approved"));
-    } else
-    {
+    } else {
         clientTcp.send(static_cast<std::string>("Denied"));
     }
 
     // Set package to nullptr for handleIdle
-    pkg = nullptr;
+    pkg   = nullptr;
     state = NFCState::idle;
 }
 
@@ -57,7 +76,7 @@ void Reader::handleCli() {
         log = getLog();
         cliTcp.send(log);
     }
-    pkg = nullptr;
+    pkg   = nullptr;
     state = NFCState::idle;
 }
 
@@ -81,16 +100,29 @@ void Reader::handleNewUser() {
         return;
     }
 
-    char accessLvl = cliPkg->front();
+    char accessLevel = cliPkg->front();
     cliPkg->erase(0, 1);
-    std::string name = *cliPkg;
 
     nlohmann::json newUser{
-        {"UID", *clientPkg},
-        {"accessLvl", accessLvl},
-        {"Name", *cliPkg}
+        {"uid", *clientPkg},
+        {"name", *cliPkg},
+        {"accessLevel", accessLevel}
     };
-    users.push_back(newUser);
+    users[std::to_string(*clientPkg)] = {*cliPkg, accessLevel};
+
+    std::ifstream inJson("users.json");
+    nlohmann::json usersJson = nlohmann::json::array();
+    if (inJson) {
+        inJson >> usersJson;
+    }
+    inJson.close();
+
+     usersJson.push_back(newUser);
+
+    std::ofstream outJson("users.json");
+    outJson << usersJson.dump(4);
+    outJson.close();
+
     clientPkg = nullptr;
     cliPkg    = nullptr;
     state     = NFCState::idle;
