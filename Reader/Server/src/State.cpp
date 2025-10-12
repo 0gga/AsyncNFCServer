@@ -9,9 +9,7 @@ State::State() {
     client_TCP.initCLI();
 }
 
-State::~State() {
-
-}
+State::~State() {}
 
 void State::tick() {
     handle_CLI();
@@ -50,7 +48,8 @@ void State::handle_CLI() {
     }
     if (*pkg == "rmUser") {}
     if (*pkg == "getLog") {
-        returnLog();
+        nlohmann::json log = getLog();
+        CLI_TCP.send(log);
     }
 }
 
@@ -66,4 +65,8 @@ void State::handle_Active() {
 void State::handle_NewUser() {
     register_NewUser();
     state = NFCState::active;
+}
+
+nlohmann::json State::getLog() {
+
 }

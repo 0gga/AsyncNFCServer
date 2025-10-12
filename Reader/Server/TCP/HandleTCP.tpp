@@ -11,12 +11,13 @@
 #define BUFSIZE_RX 256
 #define BUFSIZE_TX 512
 
-HandleTCP::HandleTCP() {
+template<typename Rx, typename Tx>
+HandleTCP<Rx,Tx>::HandleTCP() {
     //client_TCP_t = std::thread(&HandleTCP::initClient, this);
-    CLI_TCP_t = std::thread(&HandleTCP::initCLI, this);
+    CLI_TCP_t = std::thread(&HandleTCP<T>::initCLI, this);
 }
-
-HandleTCP::~HandleTCP() {
+template<typename Rx, typename Tx>
+HandleTCP<Rx,Tx>::~HandleTCP() {
     if (client_TCP_t.joinable()) {
         client_TCP_t.join();
     }
@@ -27,11 +28,13 @@ HandleTCP::~HandleTCP() {
     delete CLI_package;
 }
 
-void HandleTCP::initClient() {
+template<typename Rx, typename Tx>
+void HandleTCP<Rx,Tx>::initClient() {
 
 }
 
-void HandleTCP::initCLI() {
+template<typename Rx, typename Tx>
+void HandleTCP<Rx,Tx>::initCLI() {
     bool running{true};
 
     printf("Starting server...\n");
@@ -103,10 +106,12 @@ void HandleTCP::initCLI() {
     close(sockfd);
 }
 
-std::pair<int, int>* HandleTCP::getClientPackage() const {
-    return client_package;
+template<typename Rx, typename Tx>
+void HandleTCP<Rx,Tx>::send(T data) const {
+
 }
 
-std::string* HandleTCP::getCLIPackage() const {
-    return CLI_package;
+template<typename Rx, typename Tx>
+Rx HandleTCP<Rx,Tx>::getPackage() const {
+    return package;
 }

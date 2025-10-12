@@ -4,6 +4,7 @@
 
 #include <thread>
 
+template<typename Rx, typename Tx>
 class HandleTCP {
 public:
     HandleTCP();
@@ -12,13 +13,13 @@ public:
     void initClient();
     void initCLI();
 
-    std::pair<int, int>* getClientPackage() const;
-    std::string* getCLIPackage() const;
+    void send(Tx) const;
+
+    Rx getPackage() const;
 
 private:
     std::thread client_TCP_t;
     std::thread CLI_TCP_t;
 
-    std::pair<int, int>* client_package = new std::pair<int, int>;
-    std::string* CLI_package = new std::string;
+    Rx package = new Rx;
 };

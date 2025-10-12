@@ -4,7 +4,7 @@ project(${PROJ_NAME} LANGUAGES CXX)
 
 # Collect all .c, .cpp, .h, .tpp files from src/ & include/
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.c)
-file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS include/*.cpp include/*.c include/*.h include/*.tpp)
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS include/*.cpp include/*.c include/*.h include/*.tpp include/*.hpp)
 file(GLOB_RECURSE SERVERS CONFIGURE_DEPENDS TCP/*.cpp TCP/*.c TCP/*.h TCP/*.tpp)
 
 # Define executable path
