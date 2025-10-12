@@ -1,7 +1,7 @@
-﻿#include "State.h"
+﻿#include "Reader.h"
 
 int main() {
-	State state;
+	Reader state;
 
 	while (true) {
 		state.tick();

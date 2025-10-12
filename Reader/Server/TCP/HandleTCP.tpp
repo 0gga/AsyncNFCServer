@@ -13,28 +13,23 @@
 
 template<typename Rx>
 HandleTCP<Rx>::HandleTCP() {
-    //client_TCP_t = std::thread(&HandleTCP::initClient, this);
-    cliTcp_t = std::thread(&HandleTCP::initCli, this);
+
 }
+
 template<typename Rx>
 HandleTCP<Rx>::~HandleTCP() {
     running = false;
-    if (clientTcp_t.joinable()) {
-        clientTcp_t.join();
-    }
-    if (cliTcp_t.joinable()) {
-        cliTcp_t.join();
+    if (Tcp_t.joinable()) {
+        Tcp_t.join();
     }
     delete package;
 }
 
 template<typename Rx>
-void HandleTCP<Rx>::initClient() {
-
-}
+void HandleTCP<Rx>::initClient(uint16_t port) {}
 
 template<typename Rx>
-void HandleTCP<Rx>::initCli() {
+void HandleTCP<Rx>::initCli(uint16_t port) {
     printf("Starting CLI server...\n");
 
     int sockfd, newsockfd;
@@ -53,7 +48,6 @@ void HandleTCP<Rx>::initCli() {
     ////////////////////////////////////////
 
     constexpr char ip[]     = "172.16.15.2";
-    constexpr uint16_t port = 9000;
 
     ////////////////////////////////////////
 
@@ -81,23 +75,20 @@ void HandleTCP<Rx>::initCli() {
         printf("CLI Accepting...\n");
         newsockfd = accept(sockfd, (struct sockaddr*)&serv_addr, &clilen);
 
-        if (newsockfd < 0)
-            perror("ERROR on accept");
+        if (newsockfd < 0) perror("ERROR on accept");
 
         printf("CLI Accepted\n");
 
         readTextTCP(newsockfd, bufferRx, sizeof(bufferRx));
         n = read(newsockfd, bufferRx, sizeof(bufferRx));
 
-        if (n < 0)
-            perror("ERROR reading from socket");
+        if (n < 0) perror("ERROR reading from socket");
         printf("CLI Message: %s\n", (char*)bufferRx);
 
         snprintf((char*)bufferTx, sizeof(bufferTx), "CLI Got message: %s", (char*)bufferRx);
 
         n = write(newsockfd, bufferTx, strlen((char*)bufferTx));
-        if (n < 0)
-            perror("ERROR writing to socket");
+        if (n < 0) perror("ERROR writing to socket");
 
         close(newsockfd);
     }
@@ -105,14 +96,10 @@ void HandleTCP<Rx>::initCli() {
 }
 
 template<typename Rx>
-void HandleTCP<Rx>::send(nlohmann::json data) const {
-
-}
+void HandleTCP<Rx>::send(nlohmann::json data) const {}
 
 template<typename Rx>
-void HandleTCP<Rx>::send(std::string msg) const {
-
-}
+void HandleTCP<Rx>::send(std::string msg) const {}
 
 template<typename Rx>
 Rx*& HandleTCP<Rx>::getPackage() const {

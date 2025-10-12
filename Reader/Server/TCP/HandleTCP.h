@@ -12,8 +12,8 @@ public:
     HandleTCP();
     ~HandleTCP();
 
-    void initClient();
-    void initCli();
+    void initClient(uint16_t);
+    void initCli(uint16_t);
 
     void send(nlohmann::json) const;
     void send(std::string) const;
@@ -21,9 +21,9 @@ public:
     Rx*& getPackage() const;
 
 private:
-    std::thread clientTcp_t;
-    std::thread cliTcp_t;
+    std::thread Tcp_t;
 
     Rx* package = new Rx;
+
     bool running{true};
 };

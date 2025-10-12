@@ -1,21 +1,21 @@
-﻿#include "State.h"
+﻿#include "Reader.h"
 
-NFCState State::getState() const {
+NFCState Reader::getState() const {
     return state;
 }
 
-State::State() {
-    clientTcp.initClient();
-    clientTcp.initCli();
+Reader::Reader(int port) {
+    clientTcp.initClient(static_cast<uint16_t>(port));
+    clientTcp.initCli(static_cast<uint16_t>(port));
 }
 
-State::~State() {}
+Reader::~Reader() {}
 
-void State::tick() {
+void Reader::tick() {
     handleState();
 }
 
-void State::handleState() {
+void Reader::handleState() {
     switch (state) {
         case NFCState::idle:
             handleIdle();
@@ -29,10 +29,11 @@ void State::handleState() {
     }
 }
 
-void State::handleClient() {
+void Reader::handleClient() {
     auto& pkg = clientTcp.getPackage();
     // Check UID and access level.
-    if (1) {
+    bool authorized = users.find
+    if (authorized) {
         clientTcp.send(static_cast<std::string>("Approved"));
     } else
     {
@@ -41,9 +42,10 @@ void State::handleClient() {
 
     // Set package to nullptr for handleIdle
     pkg = nullptr;
+    state = NFCState::idle;
 }
 
-void State::handleCli() {
+void Reader::handleCli() {
     auto& pkg             = cliTcp.getPackage();
     std::string prefixStr = "newUser";
     if (pkg->substr(0, prefixStr.size()) == prefixStr) {
@@ -55,20 +57,21 @@ void State::handleCli() {
         log = getLog();
         cliTcp.send(log);
     }
-    delete pkg;
+    pkg = nullptr;
+    state = NFCState::idle;
 }
 
-void State::handleIdle() {
+void Reader::handleIdle() {
     // Setting states if packages != nullptr.
     if (cliTcp.getPackage()) state = NFCState::cliActive;
     else if (clientTcp.getPackage()) state = NFCState::clientActive;
 }
 
-nlohmann::json State::getLog() const {
+nlohmann::json Reader::getLog() const {
     return log;
 }
 
-void State::handleNewUser() {
+void Reader::handleNewUser() {
     auto& clientPkg = clientTcp.getPackage();
     auto& cliPkg    = cliTcp.getPackage();
 

@@ -11,10 +11,10 @@ enum class NFCState {
     clientActive
 };
 
-class State {
+class Reader {
 public:
-    State();
-    ~State();
+    Reader(int);
+    ~Reader();
 
     NFCState getState() const;
     void tick();
@@ -36,5 +36,5 @@ private:
     HandleTCP<std::string> cliTcp;
 
     nlohmann::json log;
-    nlohmann::json users;
+    std::unordered_map<std::string, std::pair<int, std::string>> users;
 };
