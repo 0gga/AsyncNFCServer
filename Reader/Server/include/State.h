@@ -30,13 +30,15 @@ private:
     void handle_Active();
     void handle_NewUser();
 
-    nlohmann::json getLog();
+    nlohmann::json getLog() const;
 
     bool check_For_Tag() const;
     bool is_KnownTag() const;
     void process_KnownTag();
     void register_NewUser();
 
-    HandleTCP client_TCP;
-    HandleTCP CLI_TCP;
+    HandleTCP<int, std::string> client_TCP;
+    HandleTCP<std::string, nlohmann::json> CLI_TCP;
+
+    nlohmann::json log;
 };

@@ -32,14 +32,15 @@ void State::handle_State() {
 }
 
 void State::handle_Client() {
-    auto pkg = client_TCP.getClientPackage();
+    auto pkg = client_TCP.getPackage();
     if (!pkg) {
         return;
     }
+    delete pkg;
 }
 
 void State::handle_CLI() {
-    auto pkg = CLI_TCP.getCLIPackage();
+    auto pkg = CLI_TCP.getPackage();
     if (!pkg) {
         return;
     }
@@ -48,18 +49,22 @@ void State::handle_CLI() {
     }
     if (*pkg == "rmUser") {}
     if (*pkg == "getLog") {
-        nlohmann::json log = getLog();
+        log = getLog();
         CLI_TCP.send(log);
     }
+    delete pkg;
 }
 
 void State::handle_Idle() {
-    if (check_For_Tag()) state = NFCState::active;
+    if (check_For_Tag())
+        state = NFCState::active;
 }
 
 void State::handle_Active() {
-    if (!check_For_Tag()) state = NFCState::idle;
-    else if (!is_KnownTag()) state = NFCState::newUser;
+    if (!check_For_Tag())
+        state = NFCState::idle;
+    else if (!is_KnownTag())
+        state = NFCState::newUser;
 }
 
 void State::handle_NewUser() {
@@ -67,6 +72,6 @@ void State::handle_NewUser() {
     state = NFCState::active;
 }
 
-nlohmann::json State::getLog() {
-
+nlohmann::json State::getLog() const {
+    return log;
 }

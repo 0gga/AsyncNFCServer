@@ -15,7 +15,7 @@ public:
 
     void send(Tx) const;
 
-    Rx getPackage() const;
+    Rx* getPackage() const;
 
 private:
     std::thread client_TCP_t;
