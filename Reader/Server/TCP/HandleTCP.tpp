@@ -24,8 +24,7 @@ HandleTCP<Rx,Tx>::~HandleTCP() {
     if (CLI_TCP_t.joinable()) {
         CLI_TCP_t.join();
     }
-    delete client_package;
-    delete CLI_package;
+    delete package;
 }
 
 template<typename Rx, typename Tx>

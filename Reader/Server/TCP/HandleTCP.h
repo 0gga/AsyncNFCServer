@@ -21,5 +21,5 @@ private:
     std::thread client_TCP_t;
     std::thread CLI_TCP_t;
 
-    Rx package = new Rx;
+    Rx* package = new Rx;
 };
