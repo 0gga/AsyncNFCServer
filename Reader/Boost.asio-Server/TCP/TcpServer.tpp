@@ -1,4 +1,4 @@
-#include "HandleTCP.h"
+#include "TcpServer.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,24 +12,33 @@
 #define BUFSIZE_TX 512
 
 template<typename Rx>
-HandleTCP<Rx>::HandleTCP() {
-
+TcpServer<Rx>::TcpServer(boost::asio::io_context& io_context, int port)
+    : io_context_(io_context),
+      acceptor_(io_context, tcp::endpoint(tcp::v4(), port)) {
+    start_accept();
 }
 
 template<typename Rx>
-HandleTCP<Rx>::~HandleTCP() {
+TcpServer<Rx>::~TcpServer() {
     running = false;
-    if (Tcp_t.joinable()) {
-        Tcp_t.join();
+    if (asyncTcp_t.joinable()) {
+        asyncTcp_t.join();
     }
     delete package;
 }
 
 template<typename Rx>
-void HandleTCP<Rx>::initClient(uint16_t port) {}
+void TcpServer<Rx>::startAccept() {
+    tcp_connection::pointer new_connection =
+            tcp_connection::create(io_context_);
+
+    acceptor_.async_accept(new_connection->socket(),
+                           std::bind(&tcp_server::handle_accept, this, new_connection,
+                                     boost::asio::placeholders::error));
+}
 
 template<typename Rx>
-void HandleTCP<Rx>::initCli(uint16_t port) {
+void TcpServer<Rx>::initCli(uint16_t port) {
     printf("Starting CLI server...\n");
 
     int sockfd, newsockfd;
@@ -47,7 +56,7 @@ void HandleTCP<Rx>::initCli(uint16_t port) {
 
     ////////////////////////////////////////
 
-    constexpr char ip[]     = "172.16.15.2";
+    constexpr char ip[] = "172.16.15.2";
 
     ////////////////////////////////////////
 
@@ -96,12 +105,12 @@ void HandleTCP<Rx>::initCli(uint16_t port) {
 }
 
 template<typename Rx>
-void HandleTCP<Rx>::send(nlohmann::json data) const {}
+void TcpServer<Rx>::send(nlohmann::json data) const {}
 
 template<typename Rx>
-void HandleTCP<Rx>::send(std::string msg) const {}
+void TcpServer<Rx>::send(std::string msg) const {}
 
 template<typename Rx>
-Rx*& HandleTCP<Rx>::getPackage() const {
+Rx*& TcpServer<Rx>::getPackage() const {
     return package;
 }

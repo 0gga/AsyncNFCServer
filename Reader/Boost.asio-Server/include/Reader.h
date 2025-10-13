@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "TcpServer.h"
+#include "HandleTCP.h"
 
 #include <unordered_map>
 #include <fstream>
@@ -33,8 +33,8 @@ private:
 
     nlohmann::json getLog() const;
 
-    TcpServer<std::string> clientTcp;
-    TcpServer<std::string> cliTcp;
+    HandleTCP<std::string> clientTcp;
+    HandleTCP<std::string> cliTcp;
 
     nlohmann::json log;
     std::unordered_map<std::string, std::pair<std::string, int>> users;

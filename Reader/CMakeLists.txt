@@ -2,4 +2,5 @@
 project(Reader)
 
 add_subdirectory(Server)
+add_subdirectory(Boost.asio-Server)
 #add_subdirectory(Client)

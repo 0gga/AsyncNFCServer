@@ -1,4 +1,6 @@
 #pragma once
+#define BOOST_ERROR_CODE_HEADER_ONLY
+
 #include <string>
 #include <vector>
 
@@ -7,13 +9,16 @@
 #include "json.hpp"
 
 template<typename Rx>
-class HandleTCP {
+class TcpServer {
 public:
-    HandleTCP();
-    ~HandleTCP();
+    TcpServer();
+    ~TcpServer();
+
+    void startAccept();
+
+    /////////////
 
     void initClient(uint16_t);
-    void initCli(uint16_t);
 
     void send(nlohmann::json) const;
     void send(std::string) const;
@@ -21,9 +26,10 @@ public:
     Rx*& getPackage() const;
 
 private:
-    std::thread Tcp_t;
+    static std::thread asyncTcp_t;
 
     Rx* package = new Rx;
 
-    bool running{true};
+    static inline bool running{true};
+    static boost::asio::io_context io_context_;
 };
