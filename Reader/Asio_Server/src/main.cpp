@@ -1,9 +1,9 @@
 ﻿#include "Reader.h"
 
 int main() {
-	Reader state;
+	Reader reader1(3, 9000);
 
 	while (true) {
-		state.tick();
+		reader1.tick();
 	}
 }

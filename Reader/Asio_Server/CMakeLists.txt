@@ -18,12 +18,22 @@ target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include
 
 ########################## Boost ##########################
 include_directories(
-		${CMAKE_CURRENT_SOURCE_DIR}/extern/asio/include
-		${CMAKE_CURRENT_SOURCE_DIR}/extern/system/include
-		${CMAKE_CURRENT_SOURCE_DIR}/extern/config/include
-		${CMAKE_CURRENT_SOURCE_DIR}/extern/assert/include
-		${CMAKE_CURRENT_SOURCE_DIR}/extern/core/include
-		${CMAKE_CURRENT_SOURCE_DIR}/extern/throw_exception/include
+		${CMAKE_SOURCE_DIR}/extern/asio/include
+		${CMAKE_SOURCE_DIR}/extern/system/include
+		${CMAKE_SOURCE_DIR}/extern/config/include
+		${CMAKE_SOURCE_DIR}/extern/assert/include
+		${CMAKE_SOURCE_DIR}/extern/core/include
+		${CMAKE_SOURCE_DIR}/extern/throw_exception/include
+		${CMAKE_SOURCE_DIR}/extern/align/include
+		${CMAKE_SOURCE_DIR}/extern/static_assert/include
+		${CMAKE_SOURCE_DIR}/extern/type_traits/include
+		${CMAKE_SOURCE_DIR}/extern/detail/include
+		${CMAKE_SOURCE_DIR}/extern/winapi/include
+		${CMAKE_SOURCE_DIR}/extern/predef/include
+		${CMAKE_SOURCE_DIR}/extern/integer/include
+		${CMAKE_SOURCE_DIR}/extern/utility/include
+		${CMAKE_SOURCE_DIR}/extern/move/include
+		${CMAKE_SOURCE_DIR}/extern/type_index/include
 )
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE BOOST_ERROR_CODE_HEADER_ONLY)

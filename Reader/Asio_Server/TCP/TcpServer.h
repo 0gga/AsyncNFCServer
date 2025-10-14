@@ -1,33 +1,31 @@
 #pragma once
 
-#include <string>
 #include <thread>
-#include <vector>
+#include <memory>
+#include <boost/asio.hpp>
 
-#include "json.hpp"
-
-template<typename Rx>
 class TcpServer {
 public:
-    TcpServer();
-    ~TcpServer();
+	TcpServer(int port);
+	~TcpServer();
 
-    void startAccept();
+	void start();
+	void stop();
 
-    /////////////
+	template<typename Rx>
+	Rx* read(int) const;
 
-    void initClient(uint16_t);
-
-    void send(nlohmann::json) const;
-    void send(std::string) const;
-
-    Rx*& getPackage() const;
+	template<typename Tx>
+	void write(const Tx& data) const;
 
 private:
-    static std::thread asyncTcp_t;
+	static boost::asio::io_context io_context;
+	static std::thread asyncTcp_t;
 
-    Rx* package = new Rx;
+	boost::asio::ip::tcp::acceptor acceptor;
+	boost::asio::ip::tcp::socket socket;
 
-    static inline bool running{true};
-    static boost::asio::io_context io_context_;
+	void acceptConnection();
+
+	void* package = nullptr;
 };

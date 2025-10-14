@@ -2,5 +2,11 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/asio" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/assert" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/config" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/core" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/system" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/extern/throw_exception" vcs="Git" />
   </component>
 </project>
