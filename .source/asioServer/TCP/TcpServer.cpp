@@ -50,12 +50,24 @@ void TcpServer::stopAll() {
 
 void TcpServer::acceptConnection() {
 	acceptor.async_accept(socket, [this](boost::system::error_code ec) {
-		if (!running)
-			return;
-
-		if (!ec)
-			std::cout << "Client connected on port: " << acceptor.local_endpoint().port() << std::endl;
-		else
+		if (ec)
 			std::cerr << "Accept Failed: " << ec.message() << std::endl;
+
+		connected = true;
+		std::cout << "Client connected on port: " << acceptor.local_endpoint().port() << std::endl;
 	});
 }
+
+void TcpServer::resetConnection() {
+	connected = false;
+
+	boost::system::error_code ec;
+	socket.close(ec);
+	if (ec)
+		std::cerr << "Socket close failed: " << ec.message() << std::endl;
+
+	// Prepare socket for a new accept
+	socket = boost::asio::ip::tcp::socket(io_context);
+	acceptConnection();
+}
+

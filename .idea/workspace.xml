@@ -7,46 +7,24 @@
     <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
   </component>
-  <component name="CMakePresetLoader">{
-  &quot;useNewFormat&quot;: true
-}</component>
-  <component name="CMakeProjectFlavorService">
-    <option name="flavorId" value="CMakePlainProjectFlavor" />
-  </component>
-  <component name="CMakeReloadState">
-    <option name="reloaded" value="true" />
-  </component>
+  <component name="CMakePresetLoader"><![CDATA[{
+  "useNewFormat": true
+}]]></component>
   <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="PRJ3" targetName="asioServer" />
       <config projectName="PRJ3" targetName="Server" />
     </generated>
   </component>
-  <component name="CMakeSettings" AUTO_RELOAD="true">
-    <configurations>
-      <configuration PROFILE_NAME="x64-debug" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/out/build/x64-debug" />
-      <configuration PROFILE_NAME="x64-release" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/out/build/x64-release" />
-      <configuration PROFILE_NAME="x86-debug" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/out/build/x86-debug" />
-      <configuration PROFILE_NAME="x86-release" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/out/build/x86-release" />
-    </configurations>
+  <component name="CMakeSettings">
+    <configurations />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="315737ac-39e3-4f15-8b1f-a7fb14169d37" name="Changes" comment="Changes to states">
-      <change afterPath="$PROJECT_DIR$/extern/json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Project.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/SW3PRJ3.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cmake.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cmake.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/file.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.source/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.tpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/include/json.hpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,63 +35,10 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
-  <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitLabMergeRequestFiltersHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPENED",
-    "assignee": {
-      "type": "org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue",
-      "username": "au761203",
-      "fullname": "Oscar Friis Gustavsen"
-    }
-  }
-}]]></component>
-  <component name="GitLabMergeRequestsSettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "first": "https://gitlab.au.dk/au761203/SW3PRJ3.git",
-    "second": "eecea205-3cbe-4958-b7b2-7637b50b1076"
-  }
-}]]></component>
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" root0="FORCE_HIGHLIGHTING" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 5
-}</component>
-  <component name="ProjectId" id="343HQTNKybu7qudKFfB9zP59c35" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "CMake Application.Asio_Server.executor": "Run",
-    "CMake Application.asioServer.executor": "Run",
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.west.config.association.type.startup.service": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "C:/Users/oscar/source/.repos/SW3PRJ3/.source/asioServer/TCP",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C++",
-    "vue.rearranger.settings.migration": "true"
-  }
-}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source\asioServer\TCP" />
@@ -124,20 +49,8 @@
       <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\Reader\Boost.asio-Server" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="asioServer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="PRJ3" TARGET_NAME="asioServer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="PRJ3" RUN_TARGET_NAME="asioServer">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
-  </component>
   <component name="SvnConfiguration">
-    <configuration>C:\Users\oscar\AppData\Roaming\Subversion</configuration>
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -150,7 +63,7 @@
       <workItem from="1760431978081" duration="360000" />
       <workItem from="1760432597083" duration="2611000" />
       <workItem from="1760435322157" duration="5421000" />
-      <workItem from="1760440788439" duration="16905000" />
+      <workItem from="1760440788439" duration="18382000" />
     </task>
     <task id="LOCAL-00001" summary="boost.asio integration">
       <option name="closed" value="true" />
@@ -248,11 +161,16 @@
       <option name="project" value="LOCAL" />
       <updated>1760459198014</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Changes to states">
+      <option name="closed" value="true" />
+      <created>1760461322026</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1760461322026</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
-  </component>
-  <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="3" />
   </component>
   <component name="VCPKGProject">
     <isAutomaticCheckingOnLaunch value="false" />
