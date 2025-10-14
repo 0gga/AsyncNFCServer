@@ -16,9 +16,19 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${SERVERS})
 # Include headers from include/
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include PRIVATE ${PROJECT_SOURCE_DIR}/TCP)
 
+########################## Boost ##########################
+include_directories(
+		${CMAKE_CURRENT_SOURCE_DIR}/extern/asio/include
+		${CMAKE_CURRENT_SOURCE_DIR}/extern/system/include
+		${CMAKE_CURRENT_SOURCE_DIR}/extern/config/include
+		${CMAKE_CURRENT_SOURCE_DIR}/extern/assert/include
+		${CMAKE_CURRENT_SOURCE_DIR}/extern/core/include
+		${CMAKE_CURRENT_SOURCE_DIR}/extern/throw_exception/include
+)
+
+target_compile_definitions(${PROJECT_NAME} PRIVATE BOOST_ERROR_CODE_HEADER_ONLY)
+########################## Boost ##########################
+
 # Set C++ standard
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 23)
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD_REQUIRED ON)
-
-# Force .exe
-set_target_properties(${PROJECT_NAME} PROPERTIES SUFFIX ".exe")

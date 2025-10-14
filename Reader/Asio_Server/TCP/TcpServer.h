@@ -1,10 +1,8 @@
 #pragma once
-#define BOOST_ERROR_CODE_HEADER_ONLY
 
 #include <string>
-#include <vector>
-
 #include <thread>
+#include <vector>
 
 #include "json.hpp"
 

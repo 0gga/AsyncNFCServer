@@ -14,7 +14,7 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="PRJ3" targetName="Boost.asio-Server" />
+      <config projectName="PRJ3" targetName="Asio_Server" />
       <config projectName="PRJ3" targetName="Server" />
     </generated>
   </component>
@@ -27,10 +27,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="315737ac-39e3-4f15-8b1f-a7fb14169d37" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Reader/extern/boost" afterDir="false" />
+    <list default="true" id="315737ac-39e3-4f15-8b1f-a7fb14169d37" name="Changes" comment="boost.asio integration">
+      <change afterPath="$PROJECT_DIR$/Reader/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/Boost.asio-Server/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/Asio_Server/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/Boost.asio-Server/TCP/TcpServer.h" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/Asio_Server/TCP/TcpServer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/Boost.asio-Server/TCP/TcpServer.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/Asio_Server/TCP/TcpServer.tpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/Boost.asio-Server/include/Reader.h" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/Asio_Server/include/Reader.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/Boost.asio-Server/include/json.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/Asio_Server/include/json.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/Boost.asio-Server/src/Reader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/Asio_Server/src/Reader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/Boost.asio-Server/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/Asio_Server/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reader/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Reader/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,12 +93,17 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "advanced.settings",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="CMake Application.Boost.asio-Server">
-    <configuration name="Boost.asio-Server" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="PRJ3" TARGET_NAME="Boost.asio-Server" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="PRJ3" RUN_TARGET_NAME="Boost.asio-Server">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\Reader\Boost.asio-Server" />
+    </key>
+  </component>
+  <component name="RunManager" selected="CMake Application.Asio_Server">
+    <configuration name="Asio_Server" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="PRJ3" TARGET_NAME="Asio_Server" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="PRJ3" RUN_TARGET_NAME="Asio_Server">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -106,7 +119,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.Boost.asio-Server" />
+      <item itemvalue="CMake Application.Asio_Server" />
       <item itemvalue="CMake Application.Server" />
     </list>
   </component>
@@ -122,12 +135,26 @@
       <updated>1760431268778</updated>
       <workItem from="1760431270299" duration="456000" />
       <workItem from="1760431978081" duration="360000" />
-      <workItem from="1760432597083" duration="302000" />
+      <workItem from="1760432597083" duration="1844000" />
     </task>
+    <task id="LOCAL-00001" summary="boost.asio integration">
+      <option name="closed" value="true" />
+      <created>1760433198011</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1760433198011</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticReloadCMake value="true" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -139,6 +166,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="boost.asio integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="boost.asio integration" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
