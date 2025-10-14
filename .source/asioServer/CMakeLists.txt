@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required(VERSION 3.27)
 get_filename_component(PROJ_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
-project(${PROJ_NAME} LANGUAGES CXX)
+project(${PROJ_NAME} LANGUAGES C CXX)
 
 # Collect all .c, .cpp, .h, .tpp files from src/ & include/
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.c src/*.tpp)
@@ -38,7 +38,12 @@ ${CMAKE_SOURCE_DIR}/extern/utility/include
 ${CMAKE_SOURCE_DIR}/extern/move/include
 ${CMAKE_SOURCE_DIR}/extern/type_index/include
 )
-target_link_libraries(asioServer PRIVATE ws2_32 wsock32)
+
+if (WIN32)
+	target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32 wsock32)
+elseif (UNIX)
+	target_link_libraries(${PROJECT_NAME} PRIVATE pthread)
+endif()
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE BOOST_ERROR_CODE_HEADER_ONLY)
 ########################## Boost ##########################
