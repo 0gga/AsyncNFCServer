@@ -71,23 +71,18 @@ void Reader::handleClient() {
 }
 
 void Reader::handleCli() {
-	auto& pkg = cliServer.read<std::string>();
-
-	if (pkg->substr(0, sizeof("newUser")) == "newUser") {
-		pkg->erase(0, sizeof("newUser") + 1);
-		std::string userData = *pkg;
-		addUser(userData);
-	}
-	if (pkg->substr(0, sizeof("rmUser")) == "rmUser") {
-		pkg->erase(0, sizeof("rmUser") + 1);
-		std::string userData = *pkg;
-		removeUser(userData);
-	}
-	if (*pkg == "getLog") {
-		cliServer.write<nlohmann::json>(getLog());
-	}
-	pkg   = nullptr;
-	state = NFCState::idle;
+	cliServer.read<std::string>([this](const std::string& pkg) {
+		if (pkg.rfind("newUser", 0) == 0) {
+			addUser(pkg);
+		} else if (pkg.rfind("rmUser", 0) == 0) {
+			removeUser(pkg);
+		} else if (pkg == "getLog") {
+			cliServer.write<nlohmann::json>(getLog());
+		} else {
+			cliServer.write<std::string>("Unknown Command");
+		}
+		state = NFCState::idle;
+	});
 }
 
 void Reader::handleIdle() {
@@ -98,75 +93,39 @@ void Reader::handleIdle() {
 		state = NFCState::clientActive;
 }
 
-void Reader::addUser(std::string) {
-	auto& clientPkg = clientServer.read<std::string>();
-	auto& cliPkg    = clientServer.read<std::string>();
-
-	for (int i{10}; i > 0; i--) {
-		std::this_thread::sleep_for(std::chrono::seconds(1));
-		clientServer.write<std::string>("Waiting for " + (i > 1
-															  ? (std::to_string(i) + "Seconds")
-															  : (std::to_string(i) + "Second")));
-	}
-
-	if (!clientPkg) {
-		clientServer.write<std::string>("Failed to add new user - no UID registered");
-		return;
-	}
-
+void Reader::addUser(const std::string& userdata) {
 	// Parse CLI command for correct syntax
-	static const std::regex cliSyntax(
-									  R"(^newUser\s+([A-Za-z0-9_]+)\s+([0-9]+)$)");
+	static const std::regex cliSyntax(R"(^newUser\s+([A-Za-z0-9_]+)\s+([0-9]+)$)");
 	std::smatch match;
-	if (!std::regex_match(*cliPkg, match, cliSyntax)) {
+	if (!std::regex_match(userdata, match, cliSyntax)) {
 		clientServer.write<std::string>("Failed to add new user - Incorrect CLI syntax");
 		return;
 	}
 
-	std::string name        = match[1].str();
-	char accessLevel = std::stoi(match[2].str());
+	std::string name = match[1].str();
+	char accessLevel = std::stoul(match[2].str());
 
-	nlohmann::json newUser{
-		{"uid", *clientPkg},
-		{"name", name},
-		{"accessLevel", accessLevel}
-	};
-	users[*clientPkg] = {name, accessLevel};
+	clientServer.read<std::string>([this,name,accessLevel](const std::string& uid) {
+		nlohmann::json newUser{
+			{"uid", uid},
+			{"name", name},
+			{"accessLevel", accessLevel}
+		};
+		users[uid] = {name, accessLevel};
 
-	std::ifstream inJson("users.json");
-	nlohmann::json usersJson = nlohmann::json::array();
-	if
-	(inJson) {
-		inJson >> usersJson;
-	}
+		nlohmann::json usersJson = nlohmann::json::array();
+		if (std::ifstream in("users.json"); in) {
+			in >> usersJson;
+		}
+		usersJson.push_back(newUser);
+		std::ofstream{"users.json"} << usersJson.dump(4);
 
-	inJson
-.
-			close();
-
-	usersJson
-.
-			push_back(newUser);
-
-	std::ofstream outJson("users.json");
-	outJson
-			<<
-			usersJson
-.
-			dump(
-				 4
-				);
-	outJson
-.
-			close();
-
-	clientPkg =
-			nullptr;
-	cliPkg =
-			nullptr;
-	state = NFCState
-			::idle;
+		clientServer.write<std::string>("User Added Succesfully");
+		state = NFCState::idle;
+	});
 }
+
+void Reader::removeUser(const std::string&) {}
 
 nlohmann::json Reader::getLog() const {
 	return log;

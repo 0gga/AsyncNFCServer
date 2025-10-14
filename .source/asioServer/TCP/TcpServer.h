@@ -14,12 +14,13 @@ public:
 	static void stopAll();
 
 	template<typename Rx>
-	Rx*& read();
+	void read(std::function<void(const Rx&)> handler);
 
 	template<typename Tx>
 	void write(const Tx& data) const;
 
 	bool packageReady();
+
 private:
 	static boost::asio::io_context io_context;
 	static std::thread asyncTcp_t;
@@ -29,7 +30,5 @@ private:
 
 	void acceptConnection();
 
-	static inline int activeServers{0};
-	bool running  = false;
-	void* package = nullptr;
+	bool running = false;
 };

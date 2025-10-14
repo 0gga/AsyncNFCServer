@@ -27,8 +27,8 @@ private: // Member Functions
 	void handleCli();
 
 	void handleIdle();
-	void addUser(std::string);
-	void removeUser(std::string);
+	void addUser(const std::string&);
+	void removeUser(const std::string&);
 
 	nlohmann::json getLog() const;
 

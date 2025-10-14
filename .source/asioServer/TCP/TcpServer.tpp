@@ -5,20 +5,19 @@ boost::asio::io_context TcpServer::io_context;
 std::thread TcpServer::asyncTcp_t;
 
 template<typename Rx>
-Rx*& TcpServer::read() {
+void TcpServer::read(std::function<void(const Rx&)> handler) {
 	auto* buffer = new Rx();
-	package      = buffer;
 
-	boost::asio::async_read(socket, boost::asio::buffer(package, sizeof(Rx)),
-							[this,buffer](boost::system::error_code ec, std::size_t) {
+	boost::asio::async_read(socket, boost::asio::buffer(buffer, sizeof(Rx)),
+							[this, buffer, handler](boost::system::error_code ec, std::size_t) {
 								if (ec) {
 									std::cerr << "Read Failed: " << ec.message() << std::endl;
 									delete buffer;
-									package = nullptr;
-								} else
-									std::cout << "Recieved " << sizeof(Rx) << " Bytes" << std::endl;
+									return;
+								}
+								handler(*buffer);
+								delete buffer;
 							});
-	return buffer;
 }
 
 template<typename Tx>
