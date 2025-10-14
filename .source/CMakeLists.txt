@@ -2,5 +2,5 @@
 project(Reader)
 
 add_subdirectory(Server)
-add_subdirectory(Asio_Server)
+add_subdirectory(asioServer)
 #add_subdirectory(Client)
