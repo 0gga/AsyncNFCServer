@@ -1,9 +1,11 @@
 ## **Dependencies**<br>
 
-Run `git submodule update --init --recursive` in root to clone external dependencies:
+>Run `git submodule update --init --recursive` in root to clone external dependencies:
 
-Current dependencies:<br>
-**Boost.Asio**
+**Current dependencies:**  
+  **boost.asio**  
+   Read documentation for list of all sub-dependencies  
+  **nlohmann/json**  
 
 ## **CLI Syntax & Cmdlets**<br>
 
@@ -11,7 +13,7 @@ Current dependencies:<br>
 
 _**To make the CLI commands parseable, they must be syntactically correct:**_  
 CLI command arguments must always be seperated by a single space,  
-and must never have any trailing spaces: 
+and must never have any trailing spaces:  
 `newUser ogga 3`  
 
 Names must be either snake_case or camelCase:  
@@ -31,3 +33,7 @@ The CLI parser will look for both and ensure all entries are removed.
 
 - Get user specific logs: `getULog 0gga`
 - Add new reader with accessLevel, client- and CLI port: `addReader 1 9000 9001`
+
+## **Compilation**<br>
+Native cross compilation is currently not supported.  
+Use CLion WSL toolchain for easy cross compilation.
