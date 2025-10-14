@@ -7,8 +7,7 @@ boost::asio::executor_work_guard<boost::asio::io_context::executor_type> TcpServ
 		boost::asio::make_work_guard(TcpServer::io_context);
 
 TcpServer::TcpServer(const int port)
-: acceptor(io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)),
-  socket(io_context) {}
+: acceptor(io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)) {}
 
 
 TcpServer::~TcpServer() {
@@ -16,6 +15,9 @@ TcpServer::~TcpServer() {
 }
 
 void TcpServer::start() {
+	if (running)
+		return;
+
 	running = true;
 	acceptConnection();
 
@@ -33,7 +35,6 @@ void TcpServer::stop() {
 
 	boost::system::error_code ec;
 	acceptor.close(ec);
-	socket.close(ec);
 
 	if (ec)
 		std::cerr << "Stop error: " << ec.message() << std::endl;
@@ -48,26 +49,22 @@ void TcpServer::stopAll() {
 		asyncTcp_t.join();
 }
 
-void TcpServer::acceptConnection() {
-	acceptor.async_accept(socket, [this](boost::system::error_code ec) {
-		if (ec)
-			std::cerr << "Accept Failed: " << ec.message() << std::endl;
+void TcpServer::onClientConnect(std::function<void(std::shared_ptr<TcpConnection>)> callback) {
+	connectHandler = std::move(callback);
+}
 
-		connected = true;
-		std::cout << "Client connected on port: " << acceptor.local_endpoint().port() << std::endl;
+void TcpServer::acceptConnection() {
+	auto socket = std::make_shared<boost::asio::ip::tcp::socket>(io_context);
+	acceptor.async_accept(*socket, [this,socket](boost::system::error_code ec) {
+		if (!ec) {
+			const auto connection = std::make_shared<TcpConnection>(std::move(*socket));
+			std::cout << "Client connected: " << socket->remote_endpoint() << std::endl;
+
+			if (connectHandler)
+				connectHandler(connection);
+		} else {
+			std::cerr << "Accept Failed: " << ec.message() << std::endl;
+		}
+		acceptConnection();
 	});
 }
-
-void TcpServer::resetConnection() {
-	connected = false;
-
-	boost::system::error_code ec;
-	socket.close(ec);
-	if (ec)
-		std::cerr << "Socket close failed: " << ec.message() << std::endl;
-
-	// Prepare socket for a new accept
-	socket = boost::asio::ip::tcp::socket(io_context);
-	acceptConnection();
-}
-

@@ -3,9 +3,9 @@ get_filename_component(PROJ_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 project(${PROJ_NAME} LANGUAGES CXX)
 
 # Collect all .c, .cpp, .h, .tpp files from src/ & include/
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.c)
-file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS include/*.cpp include/*.c include/*.h include/*.tpp include/*.hpp)
-file(GLOB_RECURSE SERVERS CONFIGURE_DEPENDS TCP/*.cpp TCP/*.c TCP/*.h TCP/*.tpp)
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS src/*.cpp src/*.c src/*.tpp)
+file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS include/*.cpp include/*.c include/*.tpp include/*.hpp include/*.h)
+file(GLOB_RECURSE SERVERS CONFIGURE_DEPENDS TCP/*.cpp TCP/*.c TCP/*.hpp TCP/*.h TCP/*.tpp)
 
 # Define executable path
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
@@ -21,22 +21,22 @@ include_directories(${CMAKE_SOURCE_DIR}/extern/json/single_include/nlohmann)
 
 ########################## Boost ##########################
 include_directories(
-		${CMAKE_SOURCE_DIR}/extern/asio/include
-		${CMAKE_SOURCE_DIR}/extern/system/include
-		${CMAKE_SOURCE_DIR}/extern/config/include
-		${CMAKE_SOURCE_DIR}/extern/assert/include
-		${CMAKE_SOURCE_DIR}/extern/core/include
-		${CMAKE_SOURCE_DIR}/extern/throw_exception/include
-		${CMAKE_SOURCE_DIR}/extern/align/include
-		${CMAKE_SOURCE_DIR}/extern/static_assert/include
-		${CMAKE_SOURCE_DIR}/extern/type_traits/include
-		${CMAKE_SOURCE_DIR}/extern/detail/include
-		${CMAKE_SOURCE_DIR}/extern/winapi/include
-		${CMAKE_SOURCE_DIR}/extern/predef/include
-		${CMAKE_SOURCE_DIR}/extern/integer/include
-		${CMAKE_SOURCE_DIR}/extern/utility/include
-		${CMAKE_SOURCE_DIR}/extern/move/include
-		${CMAKE_SOURCE_DIR}/extern/type_index/include
+${CMAKE_SOURCE_DIR}/extern/asio/include
+${CMAKE_SOURCE_DIR}/extern/system/include
+${CMAKE_SOURCE_DIR}/extern/config/include
+${CMAKE_SOURCE_DIR}/extern/assert/include
+${CMAKE_SOURCE_DIR}/extern/core/include
+${CMAKE_SOURCE_DIR}/extern/throw_exception/include
+${CMAKE_SOURCE_DIR}/extern/align/include
+${CMAKE_SOURCE_DIR}/extern/static_assert/include
+${CMAKE_SOURCE_DIR}/extern/type_traits/include
+${CMAKE_SOURCE_DIR}/extern/detail/include
+${CMAKE_SOURCE_DIR}/extern/winapi/include
+${CMAKE_SOURCE_DIR}/extern/predef/include
+${CMAKE_SOURCE_DIR}/extern/integer/include
+${CMAKE_SOURCE_DIR}/extern/utility/include
+${CMAKE_SOURCE_DIR}/extern/move/include
+${CMAKE_SOURCE_DIR}/extern/type_index/include
 )
 target_link_libraries(asioServer PRIVATE ws2_32 wsock32)
 

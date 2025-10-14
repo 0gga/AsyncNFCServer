@@ -21,7 +21,6 @@ compile_commands.json
 
 # IDEs / Editors
 .vscode/
-.idea/workspace.xml
 *.suo
 *.user
 *.userossc

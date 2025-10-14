@@ -5,13 +5,23 @@
 
 Reader::Reader(const int readerAccessLevel, const int clientPort, const int cliPort)
 : clientServer(clientPort), cliServer(cliPort), readerAccessLevel(readerAccessLevel) {
-	///////////////////////////// Init Client Server /////////////////////////////
-	clientServer.start();
-	std::cout << "Started Client Server" << std::endl;
+	///////////////////////////// Init Servers /////////////////////////////
+	clientServer.onClientConnect([this](std::shared_ptr<TcpConnection> connection) {
+		std::cout << "Client Connected\n";
+		handleClient(connection);
+	});
 
-	////////////////////////////// Init CLI Server //////////////////////////////
+	cliServer.onClientConnect([this](std::shared_ptr<TcpConnection> connection) {
+		std::cout << "CLI Connected\n";
+		handleCli(connection);
+	});
+
+	clientServer.start();
 	cliServer.start();
-	std::cout << "Started CLI Server" << std::endl;
+
+	running = true;
+	std::cout << "Servers started and awaiting clients" << std::endl;
+	///////////////////////////// Init Servers /////////////////////////////
 
 	////////////////////////////// Read users JSON //////////////////////////////
 	std::ifstream file("users.json");
@@ -33,8 +43,8 @@ Reader::Reader(const int readerAccessLevel, const int clientPort, const int cliP
 	}
 
 	for (const auto& user : json) {
-		if (user.contains("uid") && user.contains("name") && user.contains("accessLevel")) {
-			users[user["uid"]] = {user["name"], user["accessLevel"]};
+		if (user.contains("name") && user.contains("uid") && user.contains("accessLevel")) {
+			users[user["name"]] = {user["uid"], user["accessLevel"]};
 		}
 	}
 	////////////////////////////// Read users JSON //////////////////////////////
@@ -42,27 +52,6 @@ Reader::Reader(const int readerAccessLevel, const int clientPort, const int cliP
 
 Reader::~Reader() {
 	stop();
-}
-
-void Reader::init() {
-	state = ReaderState::Idle;
-	handleIdle();
-}
-
-
-void Reader::handleIdle() {
-	if (state != ReaderState::Idle)
-		return;
-
-	// Setting states if packages != nullptr.
-	cliServer.read<std::string>([this](const std::string& pkg) {
-		state = ReaderState::Active;
-		handleCli();
-	});
-	clientServer.read<std::string>([this](const std::string& pkg) {
-		state = ReaderState::Active;
-		handleClient();
-	});
 }
 
 void Reader::stop() {
@@ -74,73 +63,121 @@ ReaderState Reader::getState() const {
 	return state;
 }
 
-void Reader::handleClient() {
-	clientServer.read<std::string>([this](const std::string& pkg) {
+bool Reader::isRunning() const {
+	return running;
+}
+
+void Reader::handleClient(std::shared_ptr<TcpConnection> connection) {
+	state = ReaderState::Active;
+	connection->read<std::string>([this, connection](const std::string& pkg) {
 		const auto user       = users.find(pkg);
 		const bool authorized = (user != users.end() && user->second.second >= readerAccessLevel);
 
 		if (authorized)
-			clientServer.write<std::string>("Approved");
+			connection->write<std::string>("Approved");
 		else
-			clientServer.write<std::string>("Denied");
-
+			connection->write<std::string>("Denied");
 		state = ReaderState::Idle;
-		handleIdle();
+		handleClient(connection);
 	});
 }
 
-void Reader::handleCli() {
-	cliServer.read<std::string>([this](const std::string& pkg) {
+void Reader::handleCli(std::shared_ptr<TcpConnection> connection) {
+	state = ReaderState::Active;
+	connection->read<std::string>([this, connection](const std::string& pkg) {
 		if (pkg.rfind("newUser", 0) == 0) {
-			addUser(pkg);
+			addUser(connection, pkg);
 		} else if (pkg.rfind("rmUser", 0) == 0) {
-			removeUser(pkg);
+			removeUser(connection, pkg);
 		} else if (pkg == "getLog") {
-			cliServer.write<nlohmann::json>(getLog());
+			connection->write<nlohmann::json>(getLog());
+		} else if (pkg == "shutdown") {
+			connection->write<std::string>("Shutting Down...");
+			running = false;
+			TcpServer::stopAll();
+			return;
 		} else {
-			cliServer.write<std::string>("Unknown Command");
+			connection->write<std::string>("Unknown Command");
 		}
 		state = ReaderState::Idle;
-		handleIdle();
+		handleCli(connection);
 	});
 }
 
-void Reader::addUser(const std::string& userdata) {
+void Reader::addUser(std::shared_ptr<TcpConnection> connection, const std::string& userdata) {
 	// Parse CLI command for correct syntax
 	static const std::regex cliSyntax(R"(^newUser\s+([A-Za-z0-9_]+)\s+([0-9]+)$)");
 	std::smatch match;
 	if (!std::regex_match(userdata, match, cliSyntax)) {
-		clientServer.write<std::string>("Failed to add new user - Incorrect CLI syntax");
+		connection->write<std::string>("Failed to add new user - Incorrect CLI syntax");
 		return;
 	}
 
 	std::string name    = match[1].str();
 	uint8_t accessLevel = std::stoul(match[2].str());
 
-	clientServer.read<std::string>([this,name,accessLevel](const std::string& uid) {
-		nlohmann::json newUser{
-			{"uid", uid},
-			{"name", name},
-			{"accessLevel", accessLevel}
-		};
-		users[uid] = {name, accessLevel};
-
+	connection->read<std::string>([this, name, accessLevel, connection](const std::string& uid) {
 		nlohmann::json usersJson = nlohmann::json::array();
 		if (std::ifstream in("users.json"); in && in.peek() != std::ifstream::traits_type::eof()) {
 			try {
 				in >> usersJson;
 			} catch (const nlohmann::json::parse_error& e) {
-				std::cerr << "JSON parse failed to add user to users.json" << std::endl;
+				std::cerr << "JSON parse failed to add user to users.json" << e.what() << std::endl;
 			}
 		}
+		nlohmann::json newUser{
+			{"name", name},
+			{"uid", uid},
+			{"accessLevel", accessLevel}
+		};
+
+		users[name] = {uid, accessLevel};
 		usersJson.push_back(newUser);
+
 		std::ofstream{"users.json"} << usersJson.dump(4);
 
-		clientServer.write<std::string>("User Added Succesfully");
+		connection->write<std::string>("User Added Succesfully");
 	});
 }
 
-void Reader::removeUser(const std::string&) {}
+void Reader::removeUser(std::shared_ptr<TcpConnection> connection, const std::string& userdata) {
+	// Parse CLI command for correct syntax
+	static const std::regex cliSyntax(R"(^rmUser\s+([A-Za-z_]+)$)");
+	std::smatch match;
+	if (!std::regex_match(userdata, match, cliSyntax)) {
+		connection->write<std::string>("Failed to add new user - Incorrect CLI syntax");
+		return;
+	}
+
+	std::string name = match[1].str();
+
+	if (users.erase(name) == 0) {
+		std::cout << "User not found in memory" << std::endl;
+		return;
+	}
+
+	nlohmann::json usersJson = nlohmann::json::array();
+	try {
+		std::ifstream in("users.json");
+		if (in && in.peek() != std::ifstream::traits_type::eof())
+			in >> usersJson;
+		else
+			usersJson = nlohmann::json::array();
+	} catch (const nlohmann::json::parse_error& e) {
+		std::cerr << "JSON parse failed to remove user from users.json" << e.what() << std::endl;
+		usersJson = nlohmann::json::array();
+	}
+
+	for (auto it = usersJson.begin(); it != usersJson.end(); ++it) {
+		if (it->contains("name") && (*it)["name"] == name) {
+			usersJson.erase(it);
+			break;
+		}
+	}
+
+	std::ofstream{"users.json"} << usersJson.dump(4);
+	connection->write<std::string>("User Removed Succesfully");
+}
 
 nlohmann::json Reader::getLog() const {
 	return log;

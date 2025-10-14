@@ -9,10 +9,15 @@ Current dependencies:<br>
 
 ### **Syntax**<br>
 
+_**To make the CLI commands parseable, they must be syntactically correct:**_  
 CLI command arguments must always be seperated by a single space,  
-and must never have any trailing spaces i.e.  
-`newUser 0gga 3`
+and must never have any trailing spaces: 
+`newUser ogga 3`  
 
+Names must be either snake_case or camelCase:  
+`newUser ooga_booga 3`  
+`newUser oogaBooga 3`  
+The CLI parser will look for both and ensure all entries are removed.  
 
 ### **Cmdlets**<br>
 

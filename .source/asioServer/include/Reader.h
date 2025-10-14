@@ -16,24 +16,23 @@ public:
 	Reader(int aLvl, int clientPort, int cliPort);
 	~Reader();
 
-	void init();
-	void handleIdle();
-
 	void stop();
 
 	ReaderState getState() const;
 
+	bool isRunning() const;
 private: // Member Functions
-	void handleClient();
-	void handleCli();
+	void handleClient(std::shared_ptr<TcpConnection> connection);
+	void handleCli(std::shared_ptr<TcpConnection> connection);
 
-	void addUser(const std::string&);
-	void removeUser(const std::string&);
+	void addUser(std::shared_ptr<TcpConnection> connection, const std::string&);
+	void removeUser(std::shared_ptr<TcpConnection> connection, const std::string&);
 
 	nlohmann::json getLog() const;
 
 private: // Member Variables
 	ReaderState state = ReaderState::Idle;
+	bool running = true;
 
 	TcpServer clientServer;
 	TcpServer cliServer;

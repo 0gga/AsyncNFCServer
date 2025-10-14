@@ -4,27 +4,57 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
-    <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
+    <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppGeneralOptions" type="string" />
   </component>
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeProjectFlavorService">
+    <option name="flavorId" value="CMakePlainProjectFlavor" />
+  </component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
+      <config projectName="PRJ3" targetName="client" />
       <config projectName="PRJ3" targetName="asioServer" />
-      <config projectName="PRJ3" targetName="Server" />
     </generated>
   </component>
-  <component name="CMakeSettings">
-    <configurations />
+  <component name="CMakeSettings" AUTO_RELOAD="true">
+    <configurations>
+      <configuration PROFILE_NAME="x64-debug" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/out/build/x64-debug" />
+      <configuration PROFILE_NAME="x64-release" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/out/build/x64-release" />
+      <configuration PROFILE_NAME="x86-debug" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/out/build/x86-debug" />
+      <configuration PROFILE_NAME="x86-release" ENABLED="false" FROM_PRESET="true" GENERATION_DIR="$PROJECT_DIR$/out/build/x86-release" />
+    </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="315737ac-39e3-4f15-8b1f-a7fb14169d37" name="Changes" comment="Changes to states">
+    <list default="true" id="106661c3-5992-45b9-a1bf-9a023f1d5c44" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpConnection.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpConnection.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.source/client/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/cmake.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cmake.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scopes/_myScope.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scopes/_myScope.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.source/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/include/Reader.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/include/Reader.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/pn532.c" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/pn532.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/pn532.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/pn532.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/pn532_rpi.c" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/pn532_rpi.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/pn532_rpi.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/pn532_rpi.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/rpi_tcptest/rpi_get_uid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/rpi_tcptest/rpi_get_uid.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/rpi_tcptest/rpi_read_uid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/rpi_tcptest/rpi_read_uid.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,142 +65,128 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GitLabMergeRequestFiltersHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPENED&quot;,
+    &quot;assignee&quot;: {
+      &quot;type&quot;: &quot;org.jetbrains.plugins.gitlab.mergerequest.ui.filters.GitLabMergeRequestsFiltersValue.MergeRequestsMemberFilterValue.MergeRequestsAssigneeFilterValue&quot;,
+      &quot;username&quot;: &quot;au761203&quot;,
+      &quot;fullname&quot;: &quot;Oscar Friis Gustavsen&quot;
+    }
+  }
+}</component>
+  <component name="GitLabMergeRequestsSettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;first&quot;: &quot;https://gitlab.au.dk/au761203/SW3PRJ3.git&quot;,
+    &quot;second&quot;: &quot;eecea205-3cbe-4958-b7b2-7637b50b1076&quot;
+  }
+}</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///dummy.cpp" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.source/asioServer/TCP/TcpConnection.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.source/asioServer/TCP/TcpConnection.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.source/asioServer/include/Reader.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.source/asioServer/src/main.cpp" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="NamedScopeManager">
+    <order>
+      <scope name=".myScope" />
+    </order>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="344By5D2B34eUXLbI0ZtaDqgy3t" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "CMake Application.asioServer.executor": "Run",
+    "CMake Application.build_unix.executor": "Run",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "RunOnceActivity.west.config.association.type.startup.service": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/oscar/source/.repos/SW3PRJ3/.source/asioServer",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "CMakeSettings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source\asioServer" />
+      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source\client" />
       <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source\asioServer\TCP" />
-      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\Reader\Asio_Server\TCP" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3" />
-      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\Reader\Boost.asio-Server" />
+      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source\asioServer\bin" />
+      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source" />
     </key>
   </component>
-  <component name="SvnConfiguration">
-    <configuration />
+  <component name="RunManager" selected="CMake Application.asioServer">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="asioServer" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="PRJ3" TARGET_NAME="asioServer" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="PRJ3" RUN_TARGET_NAME="asioServer">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="client" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="PRJ3" TARGET_NAME="client" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="PRJ3" RUN_TARGET_NAME="client">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.asioServer" />
+      <item itemvalue="CMake Application.client" />
+    </list>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="315737ac-39e3-4f15-8b1f-a7fb14169d37" name="Changes" comment="" />
-      <created>1760431268778</created>
+      <changelist id="106661c3-5992-45b9-a1bf-9a023f1d5c44" name="Changes" comment="" />
+      <created>1760463214779</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1760431268778</updated>
-      <workItem from="1760431270299" duration="456000" />
-      <workItem from="1760431978081" duration="360000" />
-      <workItem from="1760432597083" duration="2611000" />
-      <workItem from="1760435322157" duration="5421000" />
-      <workItem from="1760440788439" duration="18382000" />
+      <updated>1760463214779</updated>
+      <workItem from="1760463216217" duration="2139000" />
+      <workItem from="1760465428136" duration="270000" />
+      <workItem from="1760465732285" duration="9799000" />
     </task>
-    <task id="LOCAL-00001" summary="boost.asio integration">
-      <option name="closed" value="true" />
-      <created>1760433198011</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1760433198011</updated>
-    </task>
-    <task id="LOCAL-00002" summary="boost.asio integration">
-      <option name="closed" value="true" />
-      <created>1760434603071</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1760434603071</updated>
-    </task>
-    <task id="LOCAL-00003" summary="boost.asio integration">
-      <option name="closed" value="true" />
-      <created>1760434710580</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1760434710580</updated>
-    </task>
-    <task id="LOCAL-00004" summary="boost.asio integration">
-      <option name="closed" value="true" />
-      <created>1760440756488</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1760440756488</updated>
-    </task>
-    <task id="LOCAL-00005" summary="boost.asio integration">
-      <option name="closed" value="true" />
-      <created>1760440929628</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1760440929628</updated>
-    </task>
-    <task id="LOCAL-00006" summary="boost.asio integration">
-      <option name="closed" value="true" />
-      <created>1760440999266</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1760440999266</updated>
-    </task>
-    <task id="LOCAL-00007" summary="boost.asio integration">
-      <option name="closed" value="true" />
-      <created>1760441264121</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1760441264121</updated>
-    </task>
-    <task id="LOCAL-00008" summary="changes people">
-      <option name="closed" value="true" />
-      <created>1760447330358</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1760447330358</updated>
-    </task>
-    <task id="LOCAL-00009" summary="changes, people!">
-      <option name="closed" value="true" />
-      <created>1760447340191</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1760447340191</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Using callback instead of pointer packages.">
-      <option name="closed" value="true" />
-      <created>1760450892801</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1760450892801</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Changes to states">
-      <option name="closed" value="true" />
-      <created>1760455094987</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1760455094987</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Changes to states">
-      <option name="closed" value="true" />
-      <created>1760459198014</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1760459198014</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Changes to states">
-      <option name="closed" value="true" />
-      <created>1760461322026</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1760461322026</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="VCPKGProject">
     <isAutomaticCheckingOnLaunch value="false" />
@@ -187,14 +203,6 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="boost.asio integration" />
-    <MESSAGE value="changes people" />
-    <MESSAGE value="changes, people!" />
-    <MESSAGE value="Using callback instead of pointer packages." />
-    <MESSAGE value="Changes to states" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changes to states" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

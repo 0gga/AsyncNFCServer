@@ -2,4 +2,4 @@
 project(Reader)
 
 add_subdirectory("asioServer")
-#add_subdirectory(Client)
+add_subdirectory("client")
