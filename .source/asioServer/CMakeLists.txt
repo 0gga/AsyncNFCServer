@@ -16,6 +16,9 @@ add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS} ${SERVERS})
 # Include headers from include/
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include PRIVATE ${PROJECT_SOURCE_DIR}/TCP)
 
+# Include nlohmann::json
+include_directories(${CMAKE_SOURCE_DIR}/extern/json/single_include/nlohmann)
+
 ########################## Boost ##########################
 include_directories(
 		${CMAKE_SOURCE_DIR}/extern/asio/include
@@ -35,6 +38,7 @@ include_directories(
 		${CMAKE_SOURCE_DIR}/extern/move/include
 		${CMAKE_SOURCE_DIR}/extern/type_index/include
 )
+target_link_libraries(asioServer PRIVATE ws2_32 wsock32)
 
 target_compile_definitions(${PROJECT_NAME} PRIVATE BOOST_ERROR_CODE_HEADER_ONLY)
 ########################## Boost ##########################

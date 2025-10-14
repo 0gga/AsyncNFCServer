@@ -15,11 +15,22 @@ Reader::Reader(const int readerAccessLevel, const int clientPort, const int cliP
 
 	////////////////////////////// Read users JSON //////////////////////////////
 	std::ifstream file("users.json");
-	if (!file) {
-		std::cerr << "Failed to open file" << std::endl;
+	nlohmann::json json = nlohmann::json::array();
+
+	if (!file.is_open() || file.peek() == std::ifstream::traits_type::eof()) {
+		std::cerr << "Users.json doesn't exist" << std::endl;
+		std::ofstream("users.json") << "[]";
+		std::cout << "Created empty users.json" << std::endl;
+	} else {
+		try {
+			file >> json;
+		} catch (const nlohmann::json::parse_error& e) {
+			std::cerr << "Invalid JSON in users.json" << e.what() << std::endl;
+			json = nlohmann::json::array();
+			std::ofstream("users.json") << "[]";
+			std::cout << "Reset invalid users.json\n";
+		}
 	}
-	nlohmann::json json;
-	file >> json;
 
 	for (const auto& user : json) {
 		if (user.contains("uid") && user.contains("name") && user.contains("accessLevel")) {
@@ -115,8 +126,12 @@ void Reader::addUser(const std::string& userdata) {
 		users[uid] = {name, accessLevel};
 
 		nlohmann::json usersJson = nlohmann::json::array();
-		if (std::ifstream in("users.json"); in) {
-			in >> usersJson;
+		if (std::ifstream in("users.json"); in && in.peek() != std::ifstream::traits_type::eof()) {
+			try {
+				in >> usersJson;
+			} catch (const nlohmann::json::parse_error& e) {
+				std::cerr << "JSON parse failed to add user to users.json" << std::endl;
+			}
 		}
 		usersJson.push_back(newUser);
 		std::ofstream{"users.json"} << usersJson.dump(4);
@@ -125,9 +140,7 @@ void Reader::addUser(const std::string& userdata) {
 	});
 }
 
-void Reader::removeUser(const std::string&) {
-
-}
+void Reader::removeUser(const std::string&) {}
 
 nlohmann::json Reader::getLog() const {
 	return log;
