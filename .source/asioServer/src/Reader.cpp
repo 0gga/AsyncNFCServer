@@ -134,7 +134,8 @@ void Reader::addUser(std::shared_ptr<TcpConnection> connection, const std::strin
 		users[name] = {uid, accessLevel};
 		usersJson.push_back(newUser);
 
-		std::ofstream{"users.json"} << usersJson.dump(4);
+		std::ofstream{"users_tmp.json"} << usersJson.dump(4);
+		std::filesystem::rename("users_tmp.json", "users.json");
 
 		connection->write<std::string>("User Added Succesfully");
 	});
@@ -165,6 +166,7 @@ void Reader::removeUser(std::shared_ptr<TcpConnection> connection, const std::st
 			usersJson = nlohmann::json::array();
 	} catch (const nlohmann::json::parse_error& e) {
 		std::cerr << "JSON parse failed to remove user from users.json" << e.what() << std::endl;
+		connection->write<std::string>("Username does not exist");
 		usersJson = nlohmann::json::array();
 	}
 
@@ -175,7 +177,8 @@ void Reader::removeUser(std::shared_ptr<TcpConnection> connection, const std::st
 		}
 	}
 
-	std::ofstream{"users.json"} << usersJson.dump(4);
+	std::ofstream{"users_tmp.json"} << usersJson.dump(4);
+	std::filesystem::rename("users_tmp.json", "users.json");
 	connection->write<std::string>("User Removed Succesfully");
 }
 
