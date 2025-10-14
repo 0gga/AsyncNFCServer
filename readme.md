@@ -4,7 +4,7 @@
 >>Run `git submodule update --init --recursive` in root to clone external dependencies:
 >
 >
->>### >**Current dependencies:**
+>>### **Current dependencies:**
 >>
 >>-  **boost.asio**  
 >>   Read documentation for info on sub-dependencies  
