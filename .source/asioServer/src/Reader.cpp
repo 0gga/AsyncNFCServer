@@ -125,7 +125,9 @@ void Reader::addUser(const std::string& userdata) {
 	});
 }
 
-void Reader::removeUser(const std::string&) {}
+void Reader::removeUser(const std::string&) {
+
+}
 
 nlohmann::json Reader::getLog() const {
 	return log;
