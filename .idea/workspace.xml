@@ -30,9 +30,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="106661c3-5992-45b9-a1bf-9a023f1d5c44" name="Changes" comment="Cross compilation implemented">
+    <list default="true" id="106661c3-5992-45b9-a1bf-9a023f1d5c44" name="Changes" comment="Final touches">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -172,15 +171,7 @@
       <option name="project" value="LOCAL" />
       <updated>1760475661234</updated>
     </task>
-    <task id="LOCAL-00003" summary="Cross compilation implemented">
-      <option name="closed" value="true" />
-      <created>1760477078601</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1760477078601</updated>
-    </task>
-    <option name="localTasksCounter" value="4" />
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,8 +207,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Final touches" />
-    <MESSAGE value="Cross compilation implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cross compilation implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final touches" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
