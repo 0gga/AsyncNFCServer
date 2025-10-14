@@ -6,7 +6,7 @@
 
 class TcpServer {
 public:
-	TcpServer(int port);
+	explicit TcpServer(int);
 	~TcpServer();
 
 	void start();

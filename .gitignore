@@ -1,4 +1,34 @@
-/.idea/*.xml
+# Build artifacts
+build/
+bin/
+obj/
+out/
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.pdb
+*.ilk
 
-!/.idea/cmake.xml
-!/.idea/vcs.xml
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# IDEs / Editors
+.vscode/
+*.suo
+*.user
+*.userossc
+*.userprefs
+*.vcxproj.*
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
