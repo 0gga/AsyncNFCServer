@@ -17,7 +17,7 @@
 >>CLI command arguments must always be seperated by a single space,  
 >>and must never have any trailing spaces:  
 >>`newUser ogga 3`  
->
+>>
 >>Names must be either snake_case or camelCase:  
 >>`newUser ooga_booga 3`  
 >>`newUser oogaBooga 3`  
