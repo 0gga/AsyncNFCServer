@@ -30,31 +30,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="106661c3-5992-45b9-a1bf-9a023f1d5c44" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpConnection.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpConnection.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.source/client/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/cmake.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cmake.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scopes/_myScope.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/scopes/_myScope.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="106661c3-5992-45b9-a1bf-9a023f1d5c44" name="Changes" comment="Final touches">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.source/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/include/Reader.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/include/Reader.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/pn532.c" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/pn532.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/pn532.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/pn532.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/pn532_rpi.c" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/pn532_rpi.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/pn532_rpi.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/pn532_rpi.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/rpi_tcptest/rpi_get_uid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/rpi_tcptest/rpi_get_uid.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client_rpi/pn532-lib/rpi_tcptest/rpi_read_uid.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/client/pn532-lib/rpi_tcptest/rpi_read_uid.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -181,8 +158,17 @@
       <updated>1760463214779</updated>
       <workItem from="1760463216217" duration="2139000" />
       <workItem from="1760465428136" duration="270000" />
-      <workItem from="1760465732285" duration="9799000" />
+      <workItem from="1760465732285" duration="9841000" />
     </task>
+    <task id="LOCAL-00001" summary="Final touches">
+      <option name="closed" value="true" />
+      <created>1760475587158</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1760475587158</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -203,6 +189,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Final touches" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final touches" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
