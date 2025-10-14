@@ -1,2 +1,4 @@
 /.idea/*.xml
-!/.idea/misc.xml
+!/.idea/cmake.xml
+!/.idea/vcs.xml
+!/.idea/workspace.xml
