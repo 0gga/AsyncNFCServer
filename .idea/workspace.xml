@@ -31,12 +31,22 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="315737ac-39e3-4f15-8b1f-a7fb14169d37" name="Changes" comment="changes, people!">
+    <list default="true" id="315737ac-39e3-4f15-8b1f-a7fb14169d37" name="Changes" comment="Using callback instead of pointer packages.">
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.source/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/Server/CMakeLists.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/Server/TCP/TcpServer.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/Server/TCP/TcpServer.tpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/Server/include/Reader.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/Server/include/json.hpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/Server/src/Reader.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/Server/src/main.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.tpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.tpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.source/asioServer/include/Reader.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/include/Reader.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +145,7 @@
       <workItem from="1760431978081" duration="360000" />
       <workItem from="1760432597083" duration="2611000" />
       <workItem from="1760435322157" duration="5421000" />
-      <workItem from="1760440788439" duration="9958000" />
+      <workItem from="1760440788439" duration="13665000" />
     </task>
     <task id="LOCAL-00001" summary="boost.asio integration">
       <option name="closed" value="true" />
@@ -209,7 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760447340191</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Using callback instead of pointer packages.">
+      <option name="closed" value="true" />
+      <created>1760450892801</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1760450892801</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +253,8 @@
     <MESSAGE value="boost.asio integration" />
     <MESSAGE value="changes people" />
     <MESSAGE value="changes, people!" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes, people!" />
+    <MESSAGE value="Using callback instead of pointer packages." />
+    <option name="LAST_COMMIT_MESSAGE" value="Using callback instead of pointer packages." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

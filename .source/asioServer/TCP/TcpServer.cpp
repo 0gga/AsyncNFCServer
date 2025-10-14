@@ -3,10 +3,12 @@
 
 boost::asio::io_context TcpServer::io_context;
 std::thread TcpServer::asyncTcp_t;
+boost::asio::executor_work_guard<boost::asio::io_context::executor_type> TcpServer::work_guard =
+		boost::asio::make_work_guard(TcpServer::io_context);
 
-TcpServer::TcpServer(const int port) : acceptor(io_context,
-												boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)),
-									   socket(io_context) {}
+TcpServer::TcpServer(const int port)
+: acceptor(io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)),
+  socket(io_context) {}
 
 
 TcpServer::~TcpServer() {
@@ -44,10 +46,6 @@ void TcpServer::stopAll() {
 	io_context.stop();
 	if (asyncTcp_t.joinable())
 		asyncTcp_t.join();
-}
-
-bool TcpServer::packageReady() {
-	return package ? true : false;
 }
 
 void TcpServer::acceptConnection() {

@@ -19,16 +19,16 @@ public:
 	template<typename Tx>
 	void write(const Tx& data) const;
 
-	bool packageReady();
-
-private:
-	static boost::asio::io_context io_context;
-	static std::thread asyncTcp_t;
-
-	boost::asio::ip::tcp::acceptor acceptor;
-	boost::asio::ip::tcp::socket socket;
-
+private: // Member Functions
 	void acceptConnection();
 
+private: // Member Variables
+	static boost::asio::io_context io_context;
+	static std::thread asyncTcp_t;
+	static boost::asio::executor_work_guard<boost::asio::io_context::executor_type> work_guard;
+
 	bool running = false;
+	
+	boost::asio::ip::tcp::acceptor acceptor;
+	boost::asio::ip::tcp::socket socket;
 };

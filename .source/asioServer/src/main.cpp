@@ -1,9 +1,7 @@
 ﻿#include "Reader.h"
 
 int main() {
-	Reader reader1(3, 9000);
+	Reader reader1(3, 9000, 9001);
 
-	while (true) {
-		reader1.tick();
-	}
+	reader1.init();
 }

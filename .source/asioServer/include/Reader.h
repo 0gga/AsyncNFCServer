@@ -6,10 +6,9 @@
 
 #include "json.hpp"
 
-enum class NFCState {
-	idle,
-	cliActive,
-	clientActive
+enum class ReaderState {
+	Idle,
+	Active
 };
 
 class Reader {
@@ -17,26 +16,28 @@ public:
 	Reader(int aLvl, int clientPort, int cliPort);
 	~Reader();
 
-	NFCState getState() const;
-	void tick();
+	void init();
+	void handleIdle();
+
+	void stop();
+
+	ReaderState getState() const;
 
 private: // Member Functions
-	void handleState();
-
 	void handleClient();
 	void handleCli();
 
-	void handleIdle();
 	void addUser(const std::string&);
 	void removeUser(const std::string&);
 
 	nlohmann::json getLog() const;
 
 private: // Member Variables
-	NFCState state = NFCState::idle;
+	ReaderState state = ReaderState::Idle;
 
 	TcpServer clientServer;
 	TcpServer cliServer;
+
 	int readerAccessLevel;
 
 	nlohmann::json log;

@@ -3,12 +3,8 @@
 #include <iostream>
 #include <regex>
 
-NFCState Reader::getState() const {
-	return state;
-}
-
-Reader::Reader(const int readerAccessLevel, const int clientPort, const int cliPort) :
-clientServer(clientPort), cliServer(cliPort), readerAccessLevel(readerAccessLevel) {
+Reader::Reader(const int readerAccessLevel, const int clientPort, const int cliPort)
+: clientServer(clientPort), cliServer(cliPort), readerAccessLevel(readerAccessLevel) {
 	///////////////////////////// Init Client Server /////////////////////////////
 	clientServer.start();
 	std::cout << "Started Client Server" << std::endl;
@@ -33,41 +29,53 @@ clientServer(clientPort), cliServer(cliPort), readerAccessLevel(readerAccessLeve
 	////////////////////////////// Read users JSON //////////////////////////////
 }
 
-Reader::~Reader() {}
-
-void Reader::tick() {
-	handleState();
+Reader::~Reader() {
+	stop();
 }
 
-void Reader::handleState() {
-	switch (state) {
-		case NFCState::idle:
-			handleIdle();
-			break;
-		case NFCState::cliActive:
-			handleCli();
-			break;
-		case NFCState::clientActive:
-			handleClient();
-			break;
-	}
+void Reader::init() {
+	state = ReaderState::Idle;
+	handleIdle();
+}
+
+
+void Reader::handleIdle() {
+	if (state != ReaderState::Idle)
+		return;
+
+	// Setting states if packages != nullptr.
+	cliServer.read<std::string>([this](const std::string& pkg) {
+		state = ReaderState::Active;
+		handleCli();
+	});
+	clientServer.read<std::string>([this](const std::string& pkg) {
+		state = ReaderState::Active;
+		handleClient();
+	});
+}
+
+void Reader::stop() {
+	state = ReaderState::Idle;
+	TcpServer::stopAll();
+}
+
+ReaderState Reader::getState() const {
+	return state;
 }
 
 void Reader::handleClient() {
-	auto& pkg = clientServer.read<std::string>();
+	clientServer.read<std::string>([this](const std::string& pkg) {
+		const auto user       = users.find(pkg);
+		const bool authorized = (user != users.end() && user->second.second >= readerAccessLevel);
 
-	// Check UID and access level.
-	auto user       = users.find(*pkg);
-	bool authorized = (user != users.end() && user->second.second >= readerAccessLevel);
+		if (authorized)
+			clientServer.write<std::string>("Approved");
+		else
+			clientServer.write<std::string>("Denied");
 
-	if (authorized)
-		clientServer.write<std::string>("Approved");
-	else
-		clientServer.write<std::string>("Denied");
-
-	// Set package to nullptr for handleIdle
-	pkg   = nullptr;
-	state = NFCState::idle;
+		state = ReaderState::Idle;
+		handleIdle();
+	});
 }
 
 void Reader::handleCli() {
@@ -81,16 +89,9 @@ void Reader::handleCli() {
 		} else {
 			cliServer.write<std::string>("Unknown Command");
 		}
-		state = NFCState::idle;
+		state = ReaderState::Idle;
+		handleIdle();
 	});
-}
-
-void Reader::handleIdle() {
-	// Setting states if packages != nullptr.
-	if (cliServer.packageReady())
-		state = NFCState::cliActive;
-	else if (clientServer.packageReady())
-		state = NFCState::clientActive;
 }
 
 void Reader::addUser(const std::string& userdata) {
@@ -102,8 +103,8 @@ void Reader::addUser(const std::string& userdata) {
 		return;
 	}
 
-	std::string name = match[1].str();
-	char accessLevel = std::stoul(match[2].str());
+	std::string name    = match[1].str();
+	uint8_t accessLevel = std::stoul(match[2].str());
 
 	clientServer.read<std::string>([this,name,accessLevel](const std::string& uid) {
 		nlohmann::json newUser{
@@ -121,7 +122,6 @@ void Reader::addUser(const std::string& userdata) {
 		std::ofstream{"users.json"} << usersJson.dump(4);
 
 		clientServer.write<std::string>("User Added Succesfully");
-		state = NFCState::idle;
 	});
 }
 
