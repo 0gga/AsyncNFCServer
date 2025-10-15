@@ -15,7 +15,7 @@
 >>### **Syntax**<br>
 >>
 >>_**To make the CLI commands parseable, they must be syntactically correct:**_  
->>CLI command arguments must always be seperated by a single space,  
+>>CLI command arguments must always be separated by a single space,  
 >>and must never have any trailing spaces:  
 >>`newUser john 3`  
 >>
@@ -55,15 +55,16 @@
 
 >## **Features**<br>
 >>### **Implemented**<br>
+>>- Easy Admin configuration through CLI connection on a separate port.
 >>- Constantly accepts clients and stores information independently.  
->>- Systemwide unified users.json.
+>>- Systemwide unified users.json - read onto hashmaps at startup for efficient runtime.
 >>- String parser for standardized name format - snake_case.  
 >><br>
 >>- ASIO - Asynchronous client handling.  
->>- Asynchronous client handling runs on hardcoded amount of dedicated threads.  
+>>- Asynchronous client handling runs on hardcoded amount of dedicated threads{4}.  
 >>- Callback to avoid blocking IO.  
 >><br>
->>- 
+>>- OOP for simple high-level usage.
 > 
 >>### **To be implemented**<br>
 >>- The system currently doesn't write systemwide logs nor user logs.
