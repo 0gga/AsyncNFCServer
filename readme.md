@@ -67,6 +67,5 @@
 >>- OOP for simple high-level usage.
 > 
 >>### **To be implemented**<br>
->>- The system currently doesn't write systemwide logs nor user logs.
->>- Client names, for readable logging.
->>- Client basis Access Levels.
+>>- The system currently doesn't write systemwide logs nor user logs,<br>
+albeit this could easily be implemented since clients are already assigned names.
