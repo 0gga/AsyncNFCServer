@@ -2,11 +2,11 @@
 #include <iostream>
 
 boost::asio::io_context TcpServer::io_context;
-std::thread TcpServer::asyncTcp_t;
+std::vector<std::thread> TcpServer::asyncThreads_t;
 boost::asio::executor_work_guard<boost::asio::io_context::executor_type> TcpServer::work_guard =
 		boost::asio::make_work_guard(TcpServer::io_context);
 
-TcpServer::TcpServer(const int port)
+TcpServer::TcpServer(const int& port)
 : acceptor(io_context, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)) {}
 
 
@@ -19,19 +19,30 @@ void TcpServer::start() {
 		return;
 
 	running = true;
+
+	io_context.restart();
 	acceptConnection();
 
-	if (!asyncTcp_t.joinable()) {
-		asyncTcp_t = std::thread([] {
-			io_context.run();
+	asyncThreads_t.clear();
+	for (int i = 0; i < threadCount; ++i)
+		asyncThreads_t.emplace_back([] {
+			try {
+				io_context.run();
+			} catch (const std::exception& e) {
+				std::cerr << "io_context thread exception: " << e.what() << std::endl;
+			}
 		});
-	}
 }
 
 void TcpServer::stop() {
 	if (!running)
 		return;
 	running = false;
+
+	io_context.stop();
+	for (auto& t : asyncThreads_t)
+		if (t.joinable())
+			t.join();
 
 	boost::system::error_code ec;
 	acceptor.close(ec);
@@ -45,12 +56,20 @@ void TcpServer::stopAll() {
 		return;
 
 	io_context.stop();
-	if (asyncTcp_t.joinable())
-		asyncTcp_t.join();
+	for (auto& t : asyncThreads_t)
+		if (t.joinable())
+			t.join();
 }
 
 void TcpServer::onClientConnect(std::function<void(std::shared_ptr<TcpConnection>)> callback) {
 	connectHandler = std::move(callback);
+}
+
+void TcpServer::setThreadCount(const uint8_t& count) {
+	if (count <= threadLimit) {
+		threadCount = count;
+	} else
+		std::cerr << "Thread count cannot be greater than " << threadLimit << std::endl;
 }
 
 void TcpServer::acceptConnection() {

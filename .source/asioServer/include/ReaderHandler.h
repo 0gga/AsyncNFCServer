@@ -13,14 +13,14 @@ enum class ReaderState {
 
 class ReaderHandler {
 public:
-	ReaderHandler(int clientPort, int cliPort);
+	ReaderHandler(const int& clientPort, const int& cliPort);
 	~ReaderHandler();
 
 	void stop();
 
 	ReaderState getState() const;
 
-	void isRunning() const;
+	static void runLoop();
 
 private: // Member Functions
 	void handleClient(std::shared_ptr<TcpConnection> connection);
@@ -40,7 +40,7 @@ private: // Member Variables
 		uint8_t accessLevel;
 	};
 	ReaderState state = ReaderState::Idle;
-	bool running = true;
+	static inline bool running = true;
 
 	TcpServer clientServer;
 	TcpServer cliServer;

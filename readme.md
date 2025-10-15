@@ -55,13 +55,15 @@
 
 >## **Features**<br>
 >>### **Implemented**<br>
->>- Constantly accepts clients and stores information independently.
+>>- Constantly accepts clients and stores information independently.  
 >>- Systemwide unified users.json.
->>- Easy server additions.
->>- ASIO - Asynchronous client handling.
->>- Callback to avoid blocking IO.
->>- Server runs on a dedicated thread.
->>- String parser for standardized name format - snake_case.
+>>- String parser for standardized name format - snake_case.  
+>><br>
+>>- ASIO - Asynchronous client handling.  
+>>- Asynchronous client handling runs on hardcoded amount of dedicated threads.  
+>>- Callback to avoid blocking IO.  
+>><br>
+>>- 
 > 
 >>### **To be implemented**<br>
 >>- The system currently doesn't write systemwide logs nor user logs.

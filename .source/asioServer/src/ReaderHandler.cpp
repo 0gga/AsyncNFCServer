@@ -3,9 +3,9 @@
 #include <iostream>
 #include <regex>
 
-ReaderHandler::ReaderHandler(const int clientPort, const int cliPort)
+ReaderHandler::ReaderHandler(const int& clientPort, const int& cliPort)
 : clientServer(clientPort), cliServer(cliPort) {
-	///////////////////////////// Init Servers /////////////////////////////
+	//////////////////////////////// Init Servers ////////////////////////////////
 	clientServer.onClientConnect([this](std::shared_ptr<TcpConnection> connection) {
 		std::cout << "Client Connected\n";
 		handleClient(connection);
@@ -16,14 +16,16 @@ ReaderHandler::ReaderHandler(const int clientPort, const int cliPort)
 		handleCli(connection);
 	});
 
+	TcpServer::setThreadCount(4);
+
 	clientServer.start();
 	cliServer.start();
 
 	running = true;
 	std::cout << "Servers started and awaiting clients" << std::endl;
-	///////////////////////////// Init Servers /////////////////////////////
+	//////////////////////////////// Init Servers ////////////////////////////////
 
-	////////////////////////////// Read users JSON //////////////////////////////
+	////////////////////////////// Read config JSON //////////////////////////////
 	std::ifstream file("config.json");
 	nlohmann::json configJson;
 
@@ -43,16 +45,27 @@ ReaderHandler::ReaderHandler(const int clientPort, const int cliPort)
 		}
 	}
 
+	//////////////////////////// Write onto hash maps ////////////////////////////
 	if (configJson.contains("doors"))
 		for (const auto& door : configJson["doors"]) {
-			doors[door["name"]] = door["accessLevel"];
+			if (door.contains("name") && door.contains("accessLevel") &&
+				door["name"].is_string() && door["accessLevel"].is_number_integer())
+				doors[door["name"]] = door["accessLevel"];
+			else
+				std::cerr << "Invalid door entry in config.json - skipping one.\n";
 		}
 
 	if (configJson.contains("users"))
-		for (const auto& user : configJson["users"]) {
-			users[user["name"]] = {user["uid"], user["accessLevel"]};
+		for (const auto& user : configJson["doors"]) {
+			if (user.contains("name") && user.contains("uid") && user.contains("accessLevel") &&
+				user["name"].is_string() && user["uid"].is_string() && user["accessLevel"].is_number_integer())
+				users[user["name"]] = {user["uid"], user["accessLevel"]};
+			else
+				std::cerr << "Invalid user entry in config.json - skipping one.\n";
 		}
-	////////////////////////////// Read users JSON //////////////////////////////
+	//////////////////////////// Write onto hash maps ////////////////////////////
+	////////////////////////////// Read config JSON //////////////////////////////
+	runLoop();
 }
 
 ReaderHandler::~ReaderHandler() {
@@ -62,13 +75,14 @@ ReaderHandler::~ReaderHandler() {
 void ReaderHandler::stop() {
 	state = ReaderState::Idle;
 	TcpServer::stopAll();
+	std::cout << "Servers Shutting Down" << std::endl;
 }
 
 ReaderState ReaderHandler::getState() const {
 	return state;
 }
 
-void ReaderHandler::isRunning() const {
+void ReaderHandler::runLoop() {
 	while (running)
 		std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }

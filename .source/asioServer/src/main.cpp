@@ -3,7 +3,7 @@
 int main() {
 	ReaderHandler reader(9000, 9001);
 
-	std::cout << "Server Shutting Down" << std::endl;
+	ReaderHandler::runLoop();
 
 	return 0;
 }

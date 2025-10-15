@@ -31,12 +31,18 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="106661c3-5992-45b9-a1bf-9a023f1d5c44" name="Changes" comment="better readme">
-      <change afterPath="$PROJECT_DIR$/.source/asioServer/src/ReaderHandler.cpp" afterDir="false" />
+    <list default="true" id="106661c3-5992-45b9-a1bf-9a023f1d5c44" name="Changes" comment="added door handling and refactored users.json to config.json">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/include/Reader.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/include/ReaderHandler.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/Reader.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpConnection.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpConnection.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/TCP/TcpServer.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/include/ReaderHandler.h" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/include/ReaderHandler.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.source/asioServer/src/ReaderHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/ReaderHandler.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.source/asioServer/src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/.source/asioServer/src/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrams/out/build/x64-debug/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrams/out/build/x64-debug/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/Diagrams/AC_diagram/AC.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/Diagrams/UC_diagram/UC.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -128,6 +134,7 @@
       <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source\asioServer\TCP" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\Diagrams" />
       <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source\asioServer\bin" />
       <recent name="C:\Users\oscar\source\.repos\SW3PRJ3\.source" />
     </key>
@@ -162,7 +169,7 @@
       <workItem from="1760478211032" duration="50000" />
       <workItem from="1760478293884" duration="46000" />
       <workItem from="1760478355364" duration="22000" />
-      <workItem from="1760521543043" duration="6666000" />
+      <workItem from="1760521543043" duration="8632000" />
     </task>
     <task id="LOCAL-00001" summary="Final touches">
       <option name="closed" value="true" />
@@ -204,7 +211,15 @@
       <option name="project" value="LOCAL" />
       <updated>1760478367628</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added door handling and refactored users.json to config.json">
+      <option name="closed" value="true" />
+      <created>1760528273693</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1760528273693</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,7 +256,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Final touches" />
     <MESSAGE value="better readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="better readme" />
+    <MESSAGE value="added door handling and refactored users.json to config.json" />
+    <option name="LAST_COMMIT_MESSAGE" value="added door handling and refactored users.json to config.json" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
