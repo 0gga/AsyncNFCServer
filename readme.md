@@ -17,17 +17,29 @@
 >>_**To make the CLI commands parseable, they must be syntactically correct:**_  
 >>CLI command arguments must always be seperated by a single space,  
 >>and must never have any trailing spaces:  
->>`newUser ogga 3`  
+>>`newUser john 3`  
 >>
->>Names must be either snake_case or camelCase:  
->>`newUser ooga_booga 3`  
->>`newUser oogaBooga 3`  
+>>User or door names must be either snake_case or camelCase:  
+>>`rmUser johnDoe`  
+>>`rmUser john_doe`  
 >>The CLI parser will look for both and ensure all entries are removed.  
+>>
+>>If exceptions are made such as PascalCase or PascalSnake_Case,  
+>>it will still work as long as the preceding letter to a surname is lower case:  
+>>`rmDoor JohnDoe`  
+>>`rmDoor John_Doe`  
+>>`rmDoor JOHN_Doe`  
+>> 
+>>The following combinations will not work:  
+>>`newUser JOHNDOE`  
+>>`newUser johNdoe`  
 >
 >>### **Cmdlets**<br>
 >>
->>- Create a new user: `newUser 0gga 3`
->>- Remove an existing user: `rmUser 0gga`
+>>- Add a new door by name: `newDoor <string>door1 <int>accesslevel`
+>>- Create a new user: `newUser <string>0gga <int>accesslevel`
+>>- Remove an existing user: `rmDoor <string>door1`
+>>- Remove an existing user: `rmUser <string>0gga`
 >>- Shutdown the CLI connection: `shutdown`
 >>- Get client logs: `getLog`
 >>
@@ -35,12 +47,23 @@
 >>#### **Possible additions:**
 >>
 >>- Get user specific logs: `getULog 0gga`
->>- Add new reader with accessLevel, client- and CLI port: `addReader 1 9000 9001`
 
 >## **Compilation**<br>
 >>### **Cross Compilation**<br>
->>Native cross compilation is currently not supported.  
+>>CMake is used for compilation and works well with any toolchain.  
 >>Use CLion WSL toolchain for easy cross compilation.
 
->## **Additions before 1.0**<br>
+>## **Features**<br>
+>>### **Implemented**<br>
+>>- Constantly accepts clients and stores information independently.
+>>- Systemwide unified users.json.
+>>- Easy server additions.
+>>- ASIO - Asynchronous client handling.
+>>- Callback to avoid blocking IO.
+>>- Server runs on a dedicated thread.
+>>- String parser for standardized name format - snake_case.
+> 
+>>### **To be implemented**<br>
 >>- The system currently doesn't write systemwide logs nor user logs.
+>>- Client names, for readable logging.
+>>- Client basis Access Levels.
